@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+
+  /* Restrained accent: desaturated steel-teal. Used sparingly as a signal
+     color, never as a dominant brand hue. */
+  --color-accent-50: #eef6f6;
+  --color-accent-100: #d8ebec;
+  --color-accent-200: #b3d6d9;
+  --color-accent-300: #86bcc1;
+  --color-accent-400: #5c9da4;
+  --color-accent-500: #3d7f88;
+  --color-accent-600: #2f6670;
+  --color-accent-700: #27525a;
+  --color-accent-800: #204248;
+  --color-accent-900: #1b363b;
+
+  /* Card / panel / button radii, tuned to the 14-20px reference range. */
+  --radius-button: 0.875rem;
+  --radius-card: 1.25rem;
+  --radius-panel: 1.5rem;
+
+  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --shadow-panel: 0 1px 1px 0 rgb(15 23 42 / 0.05), 0 24px 48px -20px rgb(15 23 42 / 0.35);
+
+  --ease-out-quiet: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+/* Section rhythm: ~80px desktop, tighter on mobile. */
+.section-y {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-y {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+.text-balance-pretty {
+  text-wrap: pretty;
+}
+
+/* --- Micro-interactions ------------------------------------------------ */
+
+/* Card lift used across capability, service, and engagement cards. */
+.card-lift {
+  transition:
+    transform 0.35s var(--ease-out-quiet),
+    box-shadow 0.35s var(--ease-out-quiet),
+    border-color 0.35s var(--ease-out-quiet);
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -20px rgb(15 23 42 / 0.18);
+  border-color: rgb(100 116 139 / 0.4);
+}
+
+@media (hover: none) {
+  .card-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Animated underline for inline text links. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s var(--ease-out-quiet);
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Staggered entrance for hero copy. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+.fade-up-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.fade-up-delay-2 {
+  animation-delay: 0.16s;
+}
+
+.fade-up-delay-3 {
+  animation-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible, high-contrast focus ring for keyboard navigation. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
