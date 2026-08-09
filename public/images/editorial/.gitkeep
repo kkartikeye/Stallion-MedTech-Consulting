@@ -1,0 +1,4 @@
+Licensed images for the "editorial" group belong here.
+See IMAGE-SOURCING.md at the repository root for the brief covering each
+slot, then register the file in src/content/imagery.ts.
+Do not commit an image without recording its licence.

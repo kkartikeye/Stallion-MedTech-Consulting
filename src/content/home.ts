@@ -1,191 +1,142 @@
+/**
+ * Homepage narrative.
+ *
+ * Written to be recognised by someone who does this work: design transfer,
+ * V&V strategy, CAPA closure, supplier readiness, sustaining backlogs. The
+ * test for every line is whether a VP of R&D would read it and think "yes,
+ * that is my Tuesday" rather than "yes, that is consulting."
+ */
+
 export const hero = {
-  eyebrow: "MEDTECH CONSULTING · PROJECT LEADERSHIP · TECHNICAL EXECUTION",
-  headline: "Leadership for complex MedTech execution.",
+  eyebrow: "MEDTECH CONSULTING & EXECUTION",
+  headline: "Strategy to execution across the MedTech lifecycle.",
   supporting:
-    "Stallion MedTech Consulting helps medical device companies move critical initiatives forward—from project definition and cross-functional planning through technical execution, issue resolution, and delivery.",
-  primaryCta: { label: "Discuss a Project", href: "/contact" },
-  secondaryCta: { label: "Explore Our Capabilities", href: "/services" },
+    "Design transfer, verification strategy, supplier readiness, CAPA closure, launch coordination. The work that decides whether a medical device program lands rarely belongs to one function — and that is where Stallion works.",
+  primaryCta: { label: "Discuss a Challenge", href: "/contact" },
+  secondaryCta: { label: "Explore Capabilities", href: "/capabilities" },
 };
 
-export const executionPanel = {
-  label: "Engagement Focus",
-  stages: [
-    { id: "define", label: "Define", detail: "Scope, ownership, success criteria" },
-    { id: "plan", label: "Plan", detail: "Workstreams, milestones, dependencies" },
-    { id: "execute", label: "Execute", detail: "Coordination, issue resolution" },
-    { id: "transition", label: "Transition", detail: "Handoff, sustainable ownership" },
-  ],
-  workstreams: [
-    { name: "Program Leadership", status: "On track" },
-    { name: "Design Transfer", status: "In progress" },
-    { name: "Supplier Coordination", status: "Monitoring" },
-    { name: "Sustaining Engineering", status: "On track" },
-  ],
-  note: "Illustrative execution view — structured for a representative MedTech program.",
-};
-
-export const challenges = {
-  label: "WHEN TO ENGAGE",
-  heading: "When critical work needs focused leadership",
-  items: [
-    "A critical initiative lacks dedicated ownership",
-    "Cross-functional teams are not aligned",
-    "Timelines, risks, or decisions are unclear",
-    "Sustaining issues are competing with new-product priorities",
-    "Internal engineering capacity is constrained",
-    "Suppliers or external partners need stronger coordination",
-    "Leadership needs clearer visibility into execution",
+export const thesis = {
+  statement: "Medical technology does not move through an organization one function at a time.",
+  paragraphs: [
+    "A design transfer is an engineering problem, a supplier problem, a process validation problem, and a schedule problem — arriving at once, owned by four people who each hold a quarter of it.",
+    "Organizations are structured by function because that is how you run operations. It is not how you resolve a recurring field issue, sequence a market expansion, or get a launch to converge. Those problems live in the gaps, and the gaps have no head of department.",
+    "Stallion works in those gaps: close enough to the technology to argue about the actual engineering, experienced enough in cross-functional delivery to keep a program moving when it depends on five teams with different priorities.",
   ],
 };
 
-export type CapabilityGroup = {
-  id: string;
-  title: string;
-  items: string[];
-  note?: string;
+/**
+ * Capability index. Presented as an editorial contents page rather than a
+ * card grid — twelve equally weighted cards was the single most templated
+ * element on the old homepage.
+ */
+export const capabilityIndex = {
+  index: "05",
+  label: "What we do",
+  heading: "Twelve capabilities",
+  copy: "Most engagements draw on several at once — that is usually why someone calls. Each also stands alone as a defined piece of work.",
 };
 
-export const capabilities = {
-  label: "CORE CAPABILITIES",
-  heading: "Capabilities organized around how MedTech work actually gets done",
-  groups: [
-    {
-      id: "project-program-leadership",
-      title: "Project and Program Leadership",
-      items: [
-        "Project planning and execution",
-        "Integrated schedules and milestones",
-        "Governance and decision pathways",
-        "Risk, issue, and dependency management",
-        "Cross-functional leadership",
-        "Executive and stakeholder communication",
-        "Portfolio visibility and prioritization",
-      ],
-    },
-    {
-      id: "product-development-support",
-      title: "Product Development Support",
-      items: [
-        "Development planning",
-        "Requirements and deliverables coordination",
-        "Design review readiness",
-        "Verification and validation planning support",
-        "Design transfer coordination",
-        "Commercialization readiness",
-        "Supplier and partner coordination",
-      ],
-    },
-    {
-      id: "sustaining-engineering-leadership",
-      title: "Sustaining Engineering Leadership",
-      items: [
-        "Product improvement initiatives",
-        "Field and customer issue coordination",
-        "Complaint-related cross-functional projects",
-        "Root-cause investigation coordination",
-        "Engineering change execution",
-        "Obsolescence and continuity initiatives",
-        "Product lifecycle planning",
-      ],
-    },
-    {
-      id: "engineering-technical-support",
-      title: "Engineering and Technical Support",
-      items: [
-        "Systems engineering",
-        "Mechanical engineering",
-        "Electrical engineering",
-        "Software and firmware",
-        "Test engineering",
-        "Verification and validation",
-        "Manufacturing engineering",
-        "Supplier engineering",
-        "Technical documentation",
-        "Data analysis",
-      ],
-      note: "Technical specialists are engaged based on scope and project requirements.",
-    },
-    {
-      id: "operational-process-improvement",
-      title: "Operational and Process Improvement",
-      items: [
-        "Product-development process improvement",
-        "Governance and workflow design",
-        "Project intake and prioritization",
-        "Reporting and management dashboards",
-        "Cross-functional operating models",
-        "Continuous improvement initiatives",
-      ],
-    },
-    {
-      id: "india-global-execution",
-      title: "India and Global Execution Support",
-      items: [
-        "Coordination between global and India-based teams",
-        "Supplier and manufacturing-partner engagement",
-        "Local execution support",
-        "Cross-border project coordination",
-        "Engineering resource development",
-        "Business and operational expansion support",
-      ],
-    },
-  ] satisfies CapabilityGroup[],
+export const sectorsSection = {
+  index: "06",
+  label: "MedTech sectors",
+  heading: "Where the capabilities get applied",
+  copy: "The engineering discipline changes by sector. The failure modes rarely do.",
 };
 
-export const engagementModels = {
-  label: "FLEXIBLE DELIVERY",
-  heading: "Support built around the work",
-  models: [
-    {
-      id: "embedded-leadership",
-      title: "Embedded Project Leadership",
-      description:
-        "A project leader works alongside the client's organization to lead a defined project, program, or portfolio.",
-    },
-    {
-      id: "targeted-advisory",
-      title: "Targeted Advisory Support",
-      description:
-        "Focused help with project recovery, planning, governance, prioritization, execution strategy, or operational improvement.",
-    },
-    {
-      id: "integrated-delivery",
-      title: "Integrated Delivery Team",
-      description:
-        "Stallion provides project leadership and assembles the technical specialists required for a defined body of work.",
-    },
-  ],
+export const lifecycleSection = {
+  index: "02",
+  label: "Where we engage",
+  heading: "Eight stages, and the seams between them",
+  copy: "Stallion can engage at any stage. The more useful answer is that most engagements start at a seam — transfer, launch convergence, a field issue that spans four functions.",
 };
 
-export const processPreview = {
-  heading: "How we work",
-  stages: [
-    { number: "01", title: "Understand", detail: "Clarify need, context, constraints, and outcome." },
-    { number: "02", title: "Structure", detail: "Define scope, ownership, plan, and risks." },
-    { number: "03", title: "Execute", detail: "Lead the work and coordinate contributors." },
-    { number: "04", title: "Transition", detail: "Transfer knowledge and sustainable ownership." },
-  ],
-  note: "The engagement is scaled to the problem—not forced into a predetermined consulting model.",
-  cta: { label: "See how we work", href: "/how-we-work" },
+export const problemsSection = {
+  index: "03",
+  label: "Problems we solve",
+  heading: "Start with the situation",
+  copy: "If one of these is the conversation happening internally this week, it links to the capability that owns it.",
+};
+
+export const manufacturingBreak = {
+  index: "04",
+  label: "Physical reality",
+  statement: "A design is a hypothesis until a supplier holds the tolerance at volume.",
+  copy: "Transfer, process validation, supplier qualification, and ramp are where optimistic assumptions become measurable. Stallion works the operational half of a program with the same structure applied to the development half.",
+  cta: { label: "Manufacturing & Supply Chain", href: "/capabilities/manufacturing-supply-chain" },
+};
+
+export const globalSection = {
+  index: "08",
+  label: "Global & India execution",
+  heading: "The economics work when the handoffs do",
+  copy: "Distributing engineering or manufacturing to India is usually modelled on capacity and cost. What the model omits is coordination cost — and that is where the expected benefit is lost.",
+  cta: { label: "India & Global Execution", href: "/capabilities/india-global-execution" },
+};
+
+export const approachSection = {
+  index: "07",
+  label: "How we work",
+  heading: "Advise or execute — usually both",
+  copy: "Some engagements are a two-week assessment. Others run a multi-workstream program for a year. The structure is the same; the span across it is what changes.",
+};
+
+export const workSection = {
+  index: "09",
+  label: "Representative work",
+  heading: "How the engagements are built",
+  copy: "Illustrative structures rather than client stories — the situation, why it resists, and what the client ends up holding.",
+};
+
+export const insightsSection = {
+  index: "10",
+  label: "Insights",
+  heading: "Notes on how MedTech work actually goes",
 };
 
 export const whyStallion = {
-  label: "WHY STALLION",
-  heading: "Grounded, execution-first partnership",
-  items: [
-    "Project leadership grounded in technical understanding",
-    "Practical support focused on execution",
-    "Flexible access to specialized capabilities",
-    "Clear ownership and communication",
-    "Cross-functional operating experience",
-    "Connection between strategic priorities and daily delivery",
-    "Flexible engagement models for different company sizes",
+  index: "11",
+  label: "Why Stallion",
+  heading: "A specialist firm, structured honestly",
+  copy: "Stallion is deliberately small. The engagement model is built around that rather than working to obscure it.",
+  reasons: [
+    {
+      title: "Technical fluency, not just process",
+      detail:
+        "Engineering background means the conversation happens at the level of the actual problem — tolerance stack, test strategy, failure mode — without translation through an intermediary.",
+    },
+    {
+      title: "Strategy and execution in one engagement",
+      detail:
+        "Advice that never becomes a plan, and delivery that never questions the direction, are both common failure modes. Holding both removes the handoff between them.",
+    },
+    {
+      title: "Cross-functional work is the default",
+      detail:
+        "The boundary between engineering, quality, regulatory, operations, and commercial is the working environment here, not an exception to be escalated.",
+    },
+    {
+      title: "Teams scoped to the problem",
+      detail:
+        "Rather than staffing from a fixed bench, Stallion determines which disciplines the work genuinely requires and engages appropriately qualified specialists for them.",
+    },
+    {
+      title: "Senior involvement throughout",
+      detail:
+        "The person who scopes the engagement stays accountable for delivering it. No handoff to a junior team after the proposal.",
+    },
+    {
+      title: "Direct U.S.–India execution experience",
+      detail:
+        "Coordinating engineering and manufacturing programs between mature MedTech markets and India-based teams and suppliers, including the handoffs that decide whether it works.",
+    },
   ],
 };
 
 export const closingCta = {
-  heading: "Let's discuss what needs to move forward.",
-  copy: "Tell us about the project, challenge, or capability gap you are working through. We'll help determine the right structure, leadership, and technical support for the engagement.",
-  primaryCta: { label: "Discuss a Project", href: "/contact" },
-  secondaryCta: { label: "Review Services", href: "/services" },
+  eyebrow: "START HERE",
+  heading: "What challenge are you trying to solve?",
+  copy: "Most useful conversations start with a problem rather than a service. Describe the situation and we will help define it, determine which expertise it actually requires, and propose a structure.",
+  primaryCta: { label: "Start a Conversation", href: "/contact" },
+  secondaryCta: { label: "See how we work", href: "/how-we-work" },
 };

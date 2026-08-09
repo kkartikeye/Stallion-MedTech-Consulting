@@ -1,26 +1,35 @@
-import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionIndex, PullQuote } from "@/components/ui/Editorial";
 import { whyStallion } from "@/content/home";
+import { siteConfig } from "@/content/site";
 
+/**
+ * Why Stallion.
+ *
+ * A pull quote isolated with real whitespace, then the reasons as a plain
+ * definition list on rules — no cards, no icons. The positioning line is
+ * the only serif moment on the page besides the manufacturing break.
+ */
 export function WhyStallion() {
   return (
-    <section className="section-y bg-slate-50">
+    <section className="section-y bg-white">
       <Container>
-        <SectionHeading eyebrow={whyStallion.label} heading={whyStallion.heading} />
+        <SectionIndex index={whyStallion.index} label={whyStallion.label} />
 
-        <ul className="mt-10 grid gap-x-8 gap-y-4 sm:grid-cols-2">
-          {whyStallion.items.map((item) => (
-            <li key={item} className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-100 text-accent-700">
-                <Check className="h-3.5 w-3.5" aria-hidden="true" />
-              </span>
-              <span className="text-sm leading-relaxed text-slate-700 sm:text-[0.95rem]">
-                {item}
-              </span>
-            </li>
+        <div className="mt-12 max-w-3xl">
+          <PullQuote>{siteConfig.positioning}</PullQuote>
+        </div>
+
+        <div className="mt-16 grid gap-x-16 gap-y-10 border-t border-ink-200 pt-12 md:grid-cols-2 lg:grid-cols-3">
+          {whyStallion.reasons.map((reason) => (
+            <div key={reason.title}>
+              <h3 className="text-[0.975rem] font-semibold tracking-tight text-ink-950">
+                {reason.title}
+              </h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-ink-600">{reason.detail}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       </Container>
     </section>
   );
