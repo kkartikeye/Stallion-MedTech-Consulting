@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CtaSection } from "@/components/ui/CtaSection";
@@ -120,12 +120,9 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
             <div className="grid gap-12 lg:grid-cols-[1.6fr_0.65fr] lg:gap-16">
               <div>
                 {insight.status === "draft" ? (
-                  <div className="mb-10 flex gap-3 rounded-card border border-amber-200 bg-amber-50 p-5">
-                    <FileText
-                      className="mt-0.5 h-4 w-4 shrink-0 text-amber-700"
-                      aria-hidden="true"
-                    />
-                    <p className="text-sm leading-relaxed text-amber-900">
+                  <div className="mb-12 border-l-2 border-amber-500 pl-5">
+                    <p className="annotation-sm text-amber-700">Editorial status</p>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-600">
                       {insightsDraftNotice}
                     </p>
                   </div>

@@ -1,118 +1,134 @@
 /**
  * Homepage narrative.
  *
- * The story order is deliberate: what Stallion is → the breadth of where it
- * helps → where it fits in the lifecycle → the client's own problem in
- * their words → sectors → why this firm → how work is structured →
- * insights → conversation.
+ * Written to be recognised by someone who does this work: design transfer,
+ * V&V strategy, CAPA closure, supplier readiness, sustaining backlogs. The
+ * test for every line is whether a VP of R&D would read it and think "yes,
+ * that is my Tuesday" rather than "yes, that is consulting."
  */
 
 export const hero = {
   eyebrow: "MEDTECH CONSULTING & EXECUTION",
   headline: "Strategy to execution across the MedTech lifecycle.",
   supporting:
-    "The hardest problems in medical technology cross engineering, quality, regulatory, operations, and commercial lines at once. Stallion works those intersections — strategic enough to advise, technical enough to understand the product, practical enough to deliver.",
+    "Design transfer, verification strategy, supplier readiness, CAPA closure, launch coordination. The work that decides whether a medical device program lands rarely belongs to one function — and that is where Stallion works.",
   primaryCta: { label: "Discuss a Challenge", href: "/contact" },
   secondaryCta: { label: "Explore Capabilities", href: "/capabilities" },
 };
 
-/**
- * "Where we help" — the breadth statement. Deliberately fewer, broader
- * groupings than the twelve capabilities, so the homepage communicates
- * scope without becoming a directory.
- */
-export const whereWeHelp = {
-  eyebrow: "WHERE WE HELP",
-  heading: "Broader than program management",
-  copy: "Program leadership is where Stallion started and remains a core strength. It is now one part of a wider capability set spanning the product and business lifecycle.",
-  areas: [
-    {
-      title: "Strategy & Growth",
-      detail: "Portfolio, product, and market decisions tested against what can actually be built.",
-      capabilitySlug: "strategy-growth",
-    },
-    {
-      title: "Product & R&D",
-      detail: "Development programs where technical work and design controls move as one plan.",
-      capabilitySlug: "product-development-rd",
-    },
-    {
-      title: "Regulatory & Quality",
-      detail: "Pathway strategy, submission programs, and remediation run with real accountability.",
-      capabilitySlug: "regulatory-market-access",
-    },
-    {
-      title: "Engineering & Digital",
-      detail: "Specialist engineering capacity, software lifecycle, connectivity, and AI-enabled products.",
-      capabilitySlug: "engineering-technical",
-    },
-    {
-      title: "Operations & Supply",
-      detail: "Design transfer, manufacturing readiness, supplier development, and continuity.",
-      capabilitySlug: "manufacturing-supply-chain",
-    },
-    {
-      title: "Commercialization",
-      detail: "Launch readiness, market entry, and the channel decisions that determine whether it lands.",
-      capabilitySlug: "commercialization",
-    },
-    {
-      title: "Program & Transformation",
-      detail: "Program leadership, recovery, portfolio governance, and PMO development.",
-      capabilitySlug: "program-portfolio-transformation",
-    },
-    {
-      title: "Lifecycle & Post-Market",
-      detail: "Sustaining engineering, field issues, obsolescence, and the long tail after launch.",
-      capabilitySlug: "post-market-lifecycle",
-    },
+export const thesis = {
+  statement: "Medical technology does not move through an organization one function at a time.",
+  paragraphs: [
+    "A design transfer is an engineering problem, a supplier problem, a process validation problem, and a schedule problem — arriving at once, owned by four people who each hold a quarter of it.",
+    "Organizations are structured by function because that is how you run operations. It is not how you resolve a recurring field issue, sequence a market expansion, or get a launch to converge. Those problems live in the gaps, and the gaps have no head of department.",
+    "Stallion works in those gaps: close enough to the technology to argue about the actual engineering, experienced enough in cross-functional delivery to keep a program moving when it depends on five teams with different priorities.",
   ],
 };
 
-export const matrixIntro = {
-  eyebrow: "WHERE STALLION ENGAGES",
-  heading: "Capability meets lifecycle stage",
-  copy: "MedTech problems cross functions and stages at the same time. This is where Stallion can engage — and the intersections are usually where the difficulty actually lives.",
-  legend: {
-    active: "Common engagement point",
-    inactive: "Available as part of a broader program",
-  },
+/**
+ * Capability index. Presented as an editorial contents page rather than a
+ * card grid — twelve equally weighted cards was the single most templated
+ * element on the old homepage.
+ */
+export const capabilityIndex = {
+  index: "05",
+  label: "What we do",
+  heading: "Twelve capabilities",
+  copy: "Most engagements draw on several at once — that is usually why someone calls. Each also stands alone as a defined piece of work.",
+};
+
+export const sectorsSection = {
+  index: "06",
+  label: "MedTech sectors",
+  heading: "Where the capabilities get applied",
+  copy: "The engineering discipline changes by sector. The failure modes rarely do.",
+};
+
+export const lifecycleSection = {
+  index: "02",
+  label: "Where we engage",
+  heading: "Eight stages, and the seams between them",
+  copy: "Stallion can engage at any stage. The more useful answer is that most engagements start at a seam — transfer, launch convergence, a field issue that spans four functions.",
+};
+
+export const problemsSection = {
+  index: "03",
+  label: "Problems we solve",
+  heading: "Start with the situation",
+  copy: "If one of these is the conversation happening internally this week, it links to the capability that owns it.",
+};
+
+export const manufacturingBreak = {
+  index: "04",
+  label: "Physical reality",
+  statement: "A design is a hypothesis until a supplier holds the tolerance at volume.",
+  copy: "Transfer, process validation, supplier qualification, and ramp are where optimistic assumptions become measurable. Stallion works the operational half of a program with the same structure applied to the development half.",
+  cta: { label: "Manufacturing & Supply Chain", href: "/capabilities/manufacturing-supply-chain" },
+};
+
+export const globalSection = {
+  index: "08",
+  label: "Global & India execution",
+  heading: "The economics work when the handoffs do",
+  copy: "Distributing engineering or manufacturing to India is usually modelled on capacity and cost. What the model omits is coordination cost — and that is where the expected benefit is lost.",
+  cta: { label: "India & Global Execution", href: "/capabilities/india-global-execution" },
+};
+
+export const approachSection = {
+  index: "07",
+  label: "How we work",
+  heading: "Advise or execute — usually both",
+  copy: "Some engagements are a two-week assessment. Others run a multi-workstream program for a year. The structure is the same; the span across it is what changes.",
+};
+
+export const workSection = {
+  index: "09",
+  label: "Representative work",
+  heading: "How the engagements are built",
+  copy: "Illustrative structures rather than client stories — the situation, why it resists, and what the client ends up holding.",
+};
+
+export const insightsSection = {
+  index: "10",
+  label: "Insights",
+  heading: "Notes on how MedTech work actually goes",
 };
 
 export const whyStallion = {
-  eyebrow: "WHY STALLION",
-  heading: "A specialist firm, structured to be useful",
-  copy: "Stallion is deliberately small. The engagement model is built around that fact rather than working to obscure it.",
+  index: "11",
+  label: "Why Stallion",
+  heading: "A specialist firm, structured honestly",
+  copy: "Stallion is deliberately small. The engagement model is built around that rather than working to obscure it.",
   reasons: [
     {
       title: "Technical fluency, not just process",
       detail:
-        "Engineering background means program conversations happen at the level of the actual problem, without translation through a technical intermediary.",
+        "Engineering background means the conversation happens at the level of the actual problem — tolerance stack, test strategy, failure mode — without translation through an intermediary.",
     },
     {
       title: "Strategy and execution in one engagement",
       detail:
-        "Advice that never becomes a plan, and delivery that never questions the direction, are both common failure modes. Holding both avoids the handoff between them.",
+        "Advice that never becomes a plan, and delivery that never questions the direction, are both common failure modes. Holding both removes the handoff between them.",
     },
     {
-      title: "Cross-functional operating experience",
+      title: "Cross-functional work is the default",
       detail:
-        "Most of the difficulty in MedTech sits between engineering, quality, regulatory, operations, and commercial. That boundary is the working environment, not an exception.",
+        "The boundary between engineering, quality, regulatory, operations, and commercial is the working environment here, not an exception to be escalated.",
     },
     {
-      title: "Teams built for the problem",
+      title: "Teams scoped to the problem",
       detail:
-        "Rather than staffing from a fixed bench, Stallion scopes the disciplines the work requires and engages appropriately qualified specialists for them.",
+        "Rather than staffing from a fixed bench, Stallion determines which disciplines the work genuinely requires and engages appropriately qualified specialists for them.",
     },
     {
       title: "Senior involvement throughout",
       detail:
-        "The person who scopes the engagement stays accountable for delivering it. There is no handoff to a junior team after the proposal.",
+        "The person who scopes the engagement stays accountable for delivering it. No handoff to a junior team after the proposal.",
     },
     {
-      title: "Global reach with an India connection",
+      title: "Direct U.S.–India execution experience",
       detail:
-        "Direct experience coordinating engineering and manufacturing work between mature MedTech markets and India-based teams and suppliers.",
+        "Coordinating engineering and manufacturing programs between mature MedTech markets and India-based teams and suppliers, including the handoffs that decide whether it works.",
     },
   ],
 };
@@ -120,7 +136,7 @@ export const whyStallion = {
 export const closingCta = {
   eyebrow: "START HERE",
   heading: "What challenge are you trying to solve?",
-  copy: "Most useful conversations start with a problem rather than a service. Describe the situation and we will help define it, determine which expertise it actually requires, and propose a structure for the engagement.",
+  copy: "Most useful conversations start with a problem rather than a service. Describe the situation and we will help define it, determine which expertise it actually requires, and propose a structure.",
   primaryCta: { label: "Start a Conversation", href: "/contact" },
   secondaryCta: { label: "See how we work", href: "/how-we-work" },
 };

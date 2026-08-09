@@ -89,27 +89,28 @@ export default function HowWeWorkPage() {
             copy={engagementModelsIntro.copy}
           />
 
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {engagementModels.map((model) => (
-              <li
+          {/* Engagement models as a specification table on rules — nine
+              equal cards read as a component-library demo. */}
+          <dl className="mt-12 border-t border-ink-200">
+            {engagementModels.map((model, index) => (
+              <div
                 key={model.id}
-                className="flex h-full flex-col rounded-card border border-ink-100 bg-white p-6 shadow-card"
+                className="grid gap-x-10 gap-y-2 border-b border-ink-200 py-6 lg:grid-cols-[2.5rem_0.7fr_1.3fr]"
               >
-                <h3 className="text-base font-semibold tracking-tight text-ink-950">
+                <dt className="section-index text-ink-500">
+                  <span className="sr-only">Model number </span>
+                  {String(index + 1).padStart(2, "0")}
+                </dt>
+                <dd className="text-base font-semibold tracking-tight text-ink-950">
                   {model.title}
-                </h3>
-                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-600">
-                  {model.description}
-                </p>
-                <p className="mt-4 border-t border-ink-100 pt-3 text-xs leading-relaxed text-ink-500">
-                  <span className="font-semibold uppercase tracking-[0.1em] text-ink-500">
-                    Best for
+                  <span className="annotation-sm mt-2 block font-normal text-ink-500">
+                    {model.bestFor}
                   </span>
-                  <span className="mt-1 block">{model.bestFor}</span>
-                </p>
-              </li>
+                </dd>
+                <dd className="text-sm leading-relaxed text-ink-600">{model.description}</dd>
+              </div>
             ))}
-          </ul>
+          </dl>
         </Container>
       </section>
 

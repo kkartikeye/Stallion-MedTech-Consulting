@@ -1,22 +1,23 @@
-import { FileText } from "lucide-react";
+import Link from "next/link";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { Container } from "@/components/ui/Container";
 import { CtaSection } from "@/components/ui/CtaSection";
-import { InsightCard } from "@/components/cards/InsightCard";
+import { MarginNote } from "@/components/ui/Editorial";
 import { JsonLd } from "@/components/ui/JsonLd";
 import {
   insights,
   publishedInsights,
-  draftInsights,
   insightsIntro,
   insightsDraftNotice,
+  readingMinutes,
 } from "@/content/insights";
 import { pageMetadata } from "@/lib/page-metadata";
 import { breadcrumbSchema } from "@/lib/structured-data";
 
 /**
- * The index is indexable, but is marked noIndex while nothing is published
- * — an index of drafts is not a page worth surfacing in search.
+ * Insights index, set as a publication contents page: numbered entries on
+ * rules with category and reading time as marginal data. Three-across cards
+ * is what every content site does; this is what a journal does.
  */
 export const metadata = pageMetadata({
   title: "Insights",
@@ -31,11 +32,9 @@ const crumbs = [
   { label: "Insights", href: "/insights" },
 ];
 
-/** Categories actually in use, so the filter row never shows empty buckets. */
-const activeCategories = Array.from(new Set(insights.map((insight) => insight.category)));
-
 export default function InsightsPage() {
   const hasPublished = publishedInsights.length > 0;
+  const listed = hasPublished ? publishedInsights : insights;
 
   return (
     <>
@@ -45,64 +44,53 @@ export default function InsightsPage() {
         heading={insightsIntro.heading}
         copy={insightsIntro.copy}
         crumbs={crumbs}
-      >
-        <ul className="flex flex-wrap gap-2">
-          {activeCategories.map((category) => (
-            <li
-              key={category}
-              className="rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-ink-200"
-            >
-              {category}
-            </li>
-          ))}
-        </ul>
-      </PageIntro>
-
-      {!hasPublished ? (
-        <section className="bg-white pt-12">
-          <Container>
-            <div className="flex gap-3 rounded-card border border-amber-200 bg-amber-50 p-5">
-              <FileText className="mt-0.5 h-4 w-4 shrink-0 text-amber-700" aria-hidden="true" />
-              <p className="text-sm leading-relaxed text-amber-900">{insightsDraftNotice}</p>
-            </div>
-          </Container>
-        </section>
-      ) : null}
+      />
 
       <section className="section-y bg-white">
         <Container>
-          {hasPublished ? (
-            <>
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {publishedInsights.map((insight) => (
-                  <li key={insight.slug} className="h-full">
-                    <InsightCard insight={insight} />
-                  </li>
-                ))}
-              </ul>
+          {!hasPublished ? (
+            <div className="mb-14 max-w-2xl">
+              <MarginNote label="Editorial status">{insightsDraftNotice}</MarginNote>
+            </div>
+          ) : null}
 
-              {draftInsights.length > 0 ? (
-                <div className="mt-16">
-                  <h2 className="type-h3 text-ink-950">Drafts pending review</h2>
-                  <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {draftInsights.map((insight) => (
-                      <li key={insight.slug} className="h-full">
-                        <InsightCard insight={insight} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </>
-          ) : (
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {insights.map((insight) => (
-                <li key={insight.slug} className="h-full">
-                  <InsightCard insight={insight} />
-                </li>
-              ))}
-            </ul>
-          )}
+          <ol className="border-t border-ink-950/15">
+            {listed.map((insight, index) => (
+              <li key={insight.slug}>
+                <Link
+                  href={`/insights/${insight.slug}`}
+                  className="group grid gap-x-10 gap-y-3 border-b border-ink-200 py-7 transition-colors hover:bg-sand-50 lg:grid-cols-[2.5rem_1.25fr_0.75fr] lg:py-8"
+                >
+                  <span className="section-index text-ink-500 transition-colors group-hover:text-accent-700">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <div>
+                    <h2 className="type-h3 text-balance-pretty text-ink-950 transition-colors group-hover:text-accent-800">
+                      {insight.title}
+                    </h2>
+                    <p className="annotation-sm mt-3 text-ink-500">
+                      {insight.category}
+                      <span aria-hidden="true" className="mx-2 opacity-50">
+                        ·
+                      </span>
+                      {readingMinutes(insight)} min
+                      {insight.status === "draft" ? (
+                        <>
+                          <span aria-hidden="true" className="mx-2 opacity-50">
+                            ·
+                          </span>
+                          <span className="text-amber-700">Draft</span>
+                        </>
+                      ) : null}
+                    </p>
+                  </div>
+
+                  <p className="text-sm leading-relaxed text-ink-600">{insight.summary}</p>
+                </Link>
+              </li>
+            ))}
+          </ol>
         </Container>
       </section>
 

@@ -9,6 +9,7 @@
 
 export type LifecycleStageId =
   | "strategy"
+  | "concept"
   | "develop"
   | "validate"
   | "industrialize"
@@ -38,6 +39,18 @@ export const lifecycleStages: LifecycleStage[] = [
       "Which opportunities justify investment?",
       "What does the competitive and regulatory landscape require?",
       "What is the realistic path to market?",
+    ],
+  },
+  {
+    id: "concept",
+    label: "Concept",
+    summary: "Establishing feasibility",
+    detail:
+      "Architecture options, early risk analysis, and user need definition. Cheap to change here, expensive everywhere after — and the stage most often compressed when a date is already committed.",
+    questions: [
+      "Have the user needs been stated precisely enough to design against?",
+      "Which technical risks need retiring before committing to an architecture?",
+      "Does the intended claim match the evidence we will be able to generate?",
     ],
   },
   {

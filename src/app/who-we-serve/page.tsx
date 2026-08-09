@@ -64,7 +64,7 @@ export default function WhoWeServePage() {
                       ))}
                     </ul>
 
-                    <ul className="mt-5 flex flex-wrap gap-2">
+                    <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
                       {clientType.capabilities.map((slug) => {
                         const capability = capabilityMap[slug];
                         if (!capability) return null;
@@ -72,7 +72,7 @@ export default function WhoWeServePage() {
                           <li key={slug}>
                             <Link
                               href={`/capabilities/${slug}`}
-                              className="group inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-sand-50 px-3.5 py-1.5 text-xs font-medium text-ink-700 transition-[border-color,color,transform] hover:border-accent-400 hover:text-ink-950 active:scale-[0.97]"
+                              className="group inline-flex items-baseline gap-1.5 text-xs font-medium text-ink-600 transition-colors hover:text-accent-800"
                             >
                               {capability.shortTitle}
                               <ArrowRight

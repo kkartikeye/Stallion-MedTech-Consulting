@@ -71,11 +71,11 @@ export function FounderProfile() {
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
                 Experience spans
               </p>
-              <ul className="mt-3 flex flex-wrap gap-2">
+              <ul className="mt-3 grid gap-x-8 border-t border-ink-200 sm:grid-cols-2">
                 {founder.experienceThemes.map((theme) => (
                   <li
                     key={theme}
-                    className="rounded-full border border-ink-200 bg-white px-3.5 py-1.5 text-xs font-medium text-ink-600"
+                    className="border-b border-ink-200 py-2.5 text-sm text-ink-600"
                   >
                     {theme}
                   </li>

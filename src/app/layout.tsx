@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Inter, Source_Serif_4, IBM_Plex_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -22,6 +22,19 @@ const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
   subsets: ["latin"],
   weight: ["400"],
+  display: "swap",
+});
+
+/**
+ * Technical annotation face: figure numbers, datum labels, captions, and
+ * section indices. Restricted to small uppercase apparatus around the
+ * content — it is what makes the pages read as drawing sheets rather than
+ * marketing pages, and it never sets body copy.
+ */
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -59,7 +72,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sourceSerif.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sourceSerif.variable} ${plexMono.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col bg-white text-ink-950">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <a

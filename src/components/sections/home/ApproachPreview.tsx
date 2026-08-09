@@ -1,60 +1,72 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { stages, engagementModels } from "@/content/how-we-work";
+import { SectionIndex, FigureLabel } from "@/components/ui/Editorial";
+import { StrategySpectrum } from "@/components/visuals/StrategySpectrum";
+import { stages } from "@/content/how-we-work";
+import { approachSection } from "@/content/home";
 
+/**
+ * How we work.
+ *
+ * Compact and tight — this is a summary, and the detail lives on
+ * /how-we-work. FIG. 03 does the arguing: engagement models plotted as
+ * spans across one axis, which shows "advise or execute" far faster than a
+ * paragraph claiming both.
+ */
 export function ApproachPreview() {
   return (
-    <section className="section-y bg-white">
+    <section className="section-y bg-sand-50">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <div>
-            <SectionHeading
-              eyebrow="HOW WE WORK"
-              heading="Five stages, scaled to the work"
-              copy="What changes between a two-week assessment and a multi-year program is depth, not structure."
-            />
-            <Link
-              href="/how-we-work"
-              className="group mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-700 transition-colors hover:text-accent-800"
-            >
-              See how we work
-              <ArrowRight className="cta-arrow h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-          </div>
+        <SectionIndex index={approachSection.index} label={approachSection.label} />
 
-          <div>
-            <ol className="grid gap-px overflow-hidden rounded-card border border-ink-100 bg-ink-100 sm:grid-cols-2 lg:grid-cols-5">
-              {stages.map((stage) => (
-                <li key={stage.id} className="bg-white p-5">
-                  <span className="text-[0.7rem] font-semibold tabular-nums text-accent-700">
-                    {stage.number}
-                  </span>
-                  <h3 className="mt-2 text-sm font-semibold tracking-tight text-ink-950">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <h2 className="type-h2 max-w-xl text-balance-pretty text-ink-950">
+            {approachSection.heading}
+          </h2>
+          <p className="max-w-md text-sm leading-relaxed text-ink-600 lg:text-right">
+            {approachSection.copy}
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+          {/* Five stages as a numbered list, not five cards. */}
+          <ol className="border-t border-ink-200">
+            {stages.map((stage) => (
+              <li
+                key={stage.id}
+                className="grid grid-cols-[2.25rem_1fr] gap-x-4 border-b border-ink-200 py-4"
+              >
+                <span className="section-index text-accent-700">{stage.number}</span>
+                <div>
+                  <h3 className="text-sm font-semibold tracking-tight text-ink-950">
                     {stage.title}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-ink-500">{stage.output}</p>
-                </li>
-              ))}
-            </ol>
+                  <p className="mt-1 text-xs leading-relaxed text-ink-600">{stage.output}</p>
+                </div>
+              </li>
+            ))}
+            <li className="pt-4">
+              <Link
+                href="/how-we-work"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-accent-700 transition-colors hover:text-accent-800"
+              >
+                See how we work
+                <ArrowRight className="cta-arrow h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            </li>
+          </ol>
 
-            <div className="mt-8">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                Engagement models
+          <figure className="m-0">
+            <StrategySpectrum />
+            <figcaption className="mt-8 border-t border-ink-200 pt-4">
+              <FigureLabel number="03" title="Engagement models across the advise–execute span" />
+              <p className="figure-caption mt-2 max-w-lg text-ink-600">
+                Stallion is not fixed at one end. An advisory engagement occupies a narrow span; a
+                transformation program runs the full width.
               </p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {engagementModels.map((model) => (
-                  <li
-                    key={model.id}
-                    className="rounded-full border border-ink-200 bg-sand-50 px-3.5 py-1.5 text-xs font-medium text-ink-700"
-                  >
-                    {model.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
         </div>
       </Container>
     </section>

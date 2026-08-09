@@ -3,6 +3,7 @@
 @theme inline {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-source-serif);
+  --font-mono: var(--font-plex-mono);
 
   /* Ink: the primary dark brand tone. Cooler and deeper than slate-950,
      which keeps large dark sections from reading as flat grey-blue. */
@@ -38,10 +39,14 @@
   --color-accent-800: #204248;
   --color-accent-900: #1b363b;
 
-  /* Card / panel / button radii, tuned to the 14-20px reference range. */
-  --radius-button: 0.875rem;
-  --radius-card: 1.25rem;
-  --radius-panel: 1.5rem;
+  /* Radii are deliberately split by role. Interactive controls stay soft;
+     editorial and technical surfaces (figures, plates, tables, document
+     blocks) are near-square, because uniformly rounded rectangles are the
+     single strongest "generic template" tell. */
+  --radius-button: 0.75rem;
+  --radius-card: 0.375rem;
+  --radius-panel: 0.5rem;
+  --radius-plate: 0.125rem;
 
   --shadow-card: 0 1px 2px 0 rgb(10 15 26 / 0.04), 0 8px 24px -12px rgb(10 15 26 / 0.12);
   --shadow-panel: 0 1px 1px 0 rgb(10 15 26 / 0.05), 0 24px 48px -20px rgb(10 15 26 / 0.35);
@@ -122,6 +127,120 @@ body {
   letter-spacing: 0.16em;
 }
 
+/* Oversized editorial statement. Used two or three times across the whole
+   site, never as a section default. */
+.type-statement {
+  font-size: clamp(1.875rem, 1.2rem + 3.1vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+/* --- Technical annotation ------------------------------------------------
+   The vocabulary of a drawing sheet: figure numbers, datum labels, section
+   indices, image captions. Monospaced and small, so it reads as apparatus
+   around the content rather than as more UI. */
+
+.annotation {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.annotation-sm {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Figure caption: sentence case, mono, sits under diagrams and images. */
+.figure-caption {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+/* Section index number, e.g. "01 /" preceding a heading. Replaces the
+   floating rounded badge that every template uses. */
+.section-index {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Brand motif ---------------------------------------------------------
+   The Stallion mark is a polyline that reads as a signal trace. That
+   geometry is reused as a rule, so dividers carry the identity instead of
+   being anonymous 1px lines. */
+
+.rule-trace {
+  height: 9px;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: 72px 9px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='9' viewBox='0 0 72 9'%3E%3Cpath d='M0 7.5H14L20 1.5L26 7.5L31 3.5L36 7.5H72' fill='none' stroke='%23c7cfd9' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+}
+
+.rule-trace-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='9' viewBox='0 0 72 9'%3E%3Cpath d='M0 7.5H14L20 1.5L26 7.5L31 3.5L36 7.5H72' fill='none' stroke='%232a394b' stroke-width='1' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+}
+
+/* --- Technical surfaces -------------------------------------------------- */
+
+/* Fine drafting grid. Applied to plates and technical panels, never to a
+   whole section — it is texture, not wallpaper. */
+.surface-drafting {
+  background-color: var(--color-ink-950);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.surface-drafting-light {
+  background-color: var(--color-sand-100);
+  background-image:
+    linear-gradient(to right, rgb(10 15 26 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(10 15 26 / 0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Registration marks at the corners of a plate, as on a drawing sheet. */
+.plate-marks::before,
+.plate-marks::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: currentColor;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.plate-marks::before {
+  top: 10px;
+  left: 10px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.plate-marks::after {
+  bottom: 10px;
+  right: 10px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
 .text-balance-pretty {
   text-wrap: pretty;
 }
@@ -152,6 +271,21 @@ body {
   .section-y-lg {
     padding-top: 7rem;
     padding-bottom: 7rem;
+  }
+}
+
+/* Deliberately tight. Used where a section should read as a continuation
+   of the one above rather than a new chapter — uniform spacing everywhere
+   is what makes a page feel machine-assembled. */
+.section-y-tight {
+  padding-top: 2.75rem;
+  padding-bottom: 2.75rem;
+}
+
+@media (min-width: 768px) {
+  .section-y-tight {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
 }
 

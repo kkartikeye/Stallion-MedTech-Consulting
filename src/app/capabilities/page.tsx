@@ -4,11 +4,10 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { Container } from "@/components/ui/Container";
 import { CtaSection } from "@/components/ui/CtaSection";
 import { CapabilityCard } from "@/components/cards/CapabilityCard";
-import { CapabilityMatrix } from "@/components/sections/CapabilityMatrix";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LifecycleCoverage } from "@/components/visuals/LifecycleCoverage";
+import { SectionIndex, FigureLabel } from "@/components/ui/Editorial";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { capabilityGroups, capabilitiesInGroup, capabilitiesIntro } from "@/content/capabilities";
-import { matrixIntro } from "@/content/home";
 import { specialistNote } from "@/content/site";
 import { breadcrumbSchema } from "@/lib/structured-data";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -65,15 +64,16 @@ export default function CapabilitiesPage() {
 
       <section className="section-y bg-ink-950">
         <Container>
-          <SectionHeading
-            eyebrow={matrixIntro.eyebrow}
-            heading={matrixIntro.heading}
-            copy={matrixIntro.copy}
-            tone="dark"
-          />
-          <div className="mt-10">
-            <CapabilityMatrix />
-          </div>
+          <SectionIndex index="02" label="Coverage" tone="dark" />
+          <h2 className="type-h2 mt-5 max-w-2xl text-balance-pretty text-white">
+            Capability meets lifecycle stage
+          </h2>
+          <figure className="mt-12">
+            <LifecycleCoverage />
+            <figcaption className="mt-8">
+              <FigureLabel number="02" title="Capability coverage across the lifecycle" tone="dark" />
+            </figcaption>
+          </figure>
         </Container>
       </section>
 

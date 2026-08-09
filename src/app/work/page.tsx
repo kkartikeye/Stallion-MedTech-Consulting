@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, Info } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { Container } from "@/components/ui/Container";
 import { CtaSection } from "@/components/ui/CtaSection";
+import { SectionIndex, MarginNote, TraceRule } from "@/components/ui/Editorial";
+import { TechnicalPlate, type PlateVariant } from "@/components/visuals/TechnicalPlate";
 import { JsonLd } from "@/components/ui/JsonLd";
 import {
   engagementArchetypes,
@@ -28,6 +30,16 @@ const crumbs = [
   { label: "Representative Work", href: "/work" },
 ];
 
+/** A technical plate per archetype, matched to the kind of work. */
+const ARCHETYPE_PLATE: Record<string, PlateVariant> = {
+  "design-transfer-program": "fabrication",
+  "sustaining-portfolio": "assembly",
+  "program-recovery": "assembly",
+  "operating-model": "electronics",
+  "india-execution": "network",
+  "quality-remediation": "electronics",
+};
+
 export default function WorkPage() {
   return (
     <>
@@ -39,30 +51,27 @@ export default function WorkPage() {
         crumbs={crumbs}
       />
 
-      {/* Honesty notice sits above the content, not buried beneath it. */}
-      <section className="bg-white pt-12">
+      {/* Honesty notice, as a margin note rather than an alert box. */}
+      <section className="bg-white pt-14">
         <Container>
-          <div className="flex gap-3 rounded-card border border-ink-200 bg-sand-50 p-5">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-ink-500" aria-hidden="true" />
-            <p className="text-sm leading-relaxed text-ink-600">{workDisclaimer}</p>
+          <div className="max-w-3xl">
+            <MarginNote label="Note on this page">{workDisclaimer}</MarginNote>
           </div>
         </Container>
       </section>
 
-      {/* Real case studies render here first once approved ones exist. */}
       {caseStudies.length > 0 ? (
         <section className="section-y bg-white">
           <Container>
-            <h2 className="type-h3 text-ink-950">Client engagements</h2>
-            <ul className="mt-8 space-y-4">
+            <SectionIndex index="—" label="Client engagements" />
+            <ul className="mt-8 space-y-8">
               {caseStudies.map((study) => (
-                <li
-                  key={study.slug}
-                  className="rounded-card border border-ink-100 bg-white p-6 shadow-card"
-                >
-                  <h3 className="type-h3 text-ink-950">{study.title}</h3>
-                  <p className="mt-1 text-sm text-ink-500">{study.anonymizedClient}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-600">{study.situation}</p>
+                <li key={study.slug} className="border-t border-ink-200 pt-6">
+                  <h2 className="type-h3 text-ink-950">{study.title}</h2>
+                  <p className="annotation-sm mt-2 text-ink-500">{study.anonymizedClient}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-600">
+                    {study.situation}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -72,129 +81,109 @@ export default function WorkPage() {
 
       <section className="section-y bg-white">
         <Container>
-          <ul className="space-y-6">
-            {engagementArchetypes.map((archetype, index) => {
-              const capability = capabilityMap[archetype.capabilitySlug];
-              const model = engagementModels.find(
-                (entry) => entry.id === archetype.engagementModelId,
-              );
+          {engagementArchetypes.map((archetype, index) => {
+            const capability = capabilityMap[archetype.capabilitySlug];
+            const model = engagementModels.find((m) => m.id === archetype.engagementModelId);
+            const plate = ARCHETYPE_PLATE[archetype.id] ?? "assembly";
+            // Alternate which side the plate falls on so the page has a
+            // rhythm instead of six identical rows.
+            const flip = index % 2 === 1;
 
-              return (
-                <li
-                  key={archetype.id}
-                  className="overflow-hidden rounded-panel border border-ink-100 bg-white shadow-card"
+            return (
+              <article
+                key={archetype.id}
+                className="border-t border-ink-950/15 py-14 first:border-t-0 first:pt-0 lg:py-20"
+              >
+                {/* Title block */}
+                <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-baseline">
+                  <div>
+                    <SectionIndex
+                      index={String(index + 1).padStart(2, "0")}
+                      label={model?.title ?? "Engagement"}
+                    />
+                    <h2 className="type-h2 mt-4 max-w-2xl text-balance-pretty text-ink-950">
+                      {archetype.title}
+                    </h2>
+                  </div>
+                  {capability ? (
+                    <Link
+                      href={`/capabilities/${capability.slug}`}
+                      className="group inline-flex items-center gap-2 text-sm font-semibold text-accent-700 transition-colors hover:text-accent-800"
+                    >
+                      {capability.shortTitle}
+                      <ArrowRight className="cta-arrow h-3.5 w-3.5" aria-hidden="true" />
+                    </Link>
+                  ) : null}
+                </div>
+
+                {/* Functions as a datum line under the title */}
+                <p className="annotation-sm mt-6 leading-relaxed text-ink-500">
+                  {archetype.functions.join("  ·  ")}
+                </p>
+                <TraceRule className="mt-3 max-w-md" />
+
+                {/* Story */}
+                <div
+                  className={`mt-10 grid gap-x-16 gap-y-10 lg:grid-cols-[1.15fr_0.85fr] ${
+                    flip ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
                 >
-                  <div className="border-b border-ink-100 bg-sand-50 px-6 py-5 sm:px-8">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <span className="text-[0.7rem] font-semibold tabular-nums text-ink-500">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <h2 className="type-h3 text-ink-950">{archetype.title}</h2>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {model ? (
-                          <span className="rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-medium text-ink-600">
-                            {model.title}
-                          </span>
-                        ) : null}
-                        {capability ? (
-                          <Link
-                            href={`/capabilities/${capability.slug}`}
-                            className="group inline-flex items-center gap-1.5 rounded-full bg-accent-50 px-3 py-1 text-xs font-semibold text-accent-700 transition-colors hover:bg-accent-100"
-                          >
-                            {capability.shortTitle}
-                            <ArrowRight className="cta-arrow h-3 w-3" aria-hidden="true" />
-                          </Link>
-                        ) : null}
-                      </div>
+                  <div className="space-y-8">
+                    <div>
+                      <h3 className="annotation-sm text-ink-500">Situation</h3>
+                      <p className="mt-2.5 text-base leading-relaxed text-ink-700">
+                        {archetype.situation}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="annotation-sm text-ink-500">Why it resists</h3>
+                      <p className="mt-2.5 text-base leading-relaxed text-ink-700">
+                        {archetype.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="annotation-sm text-ink-500">Stallion&rsquo;s role</h3>
+                      <p className="mt-2.5 text-base leading-relaxed text-ink-700">
+                        {archetype.stallionRole}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-2 lg:gap-12">
-                    <div className="space-y-6">
-                      <div>
-                        <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                          Situation
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-700">
-                          {archetype.situation}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                          Why it is hard
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-700">
-                          {archetype.challenge}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                          Stallion&rsquo;s role
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-700">
-                          {archetype.stallionRole}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                          Functions involved
-                        </h3>
-                        <ul className="mt-2.5 flex flex-wrap gap-1.5">
-                          {archetype.functions.map((fn) => (
-                            <li
-                              key={fn}
-                              className="rounded-full border border-ink-200 bg-sand-50 px-3 py-1 text-xs text-ink-600"
-                            >
-                              {fn}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <div>
+                    {/* Technical plate keyed to the type of work */}
+                    <div className="surface-drafting-light plate-marks relative mb-9 aspect-16/10 overflow-hidden text-ink-400">
+                      <TechnicalPlate
+                        variant={plate}
+                        className="absolute inset-0 h-full w-full p-[8%]"
+                      />
                     </div>
 
-                    <div className="space-y-6">
-                      <div>
-                        <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                          Approach
-                        </h3>
-                        <ul className="mt-2.5 space-y-2.5">
-                          {archetype.approach.map((step) => (
-                            <li
-                              key={step}
-                              className="flex gap-3 text-sm leading-relaxed text-ink-700"
-                            >
-                              <span
-                                aria-hidden="true"
-                                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"
-                              />
-                              {step}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                          Deliverables
-                        </h3>
-                        <ul className="mt-2.5 space-y-2">
-                          {archetype.deliverables.map((deliverable) => (
-                            <li
-                              key={deliverable}
-                              className="border-b border-ink-100 pb-2 text-sm leading-relaxed text-ink-700 last:border-0"
-                            >
-                              {deliverable}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
+                    <h3 className="annotation-sm text-ink-500">Approach</h3>
+                    <ol className="mt-3 border-t border-ink-200">
+                      {archetype.approach.map((step, i) => (
+                        <li
+                          key={step}
+                          className="grid grid-cols-[1.75rem_1fr] gap-x-3 border-b border-ink-200 py-3"
+                        >
+                          <span className="section-index text-ink-500">{i + 1}</span>
+                          <span className="text-sm leading-relaxed text-ink-700">{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+
+                    <h3 className="annotation-sm mt-8 text-ink-500">What the client holds</h3>
+                    <ul className="mt-3 space-y-1.5">
+                      {archetype.deliverables.map((deliverable) => (
+                        <li key={deliverable} className="text-sm leading-relaxed text-ink-700">
+                          {deliverable}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </li>
-              );
-            })}
-          </ul>
+                </div>
+              </article>
+            );
+          })}
         </Container>
       </section>
 

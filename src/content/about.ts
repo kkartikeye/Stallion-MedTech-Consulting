@@ -25,6 +25,25 @@ export const whyWeExist = {
   ],
 };
 
+/**
+ * A short first-person statement from the founder.
+ *
+ * Kept to observations about the work itself — no invented biography, no
+ * origin anecdote, no claimed career length. It exists so the site reads as
+ * written by a person with a view, rather than by a firm with a template.
+ * Review and edit the voice before publishing; the substance is drawn from
+ * the positioning already documented elsewhere in this file.
+ */
+export const founderStatement = {
+  quote:
+    "Stallion was built around one observation: the hardest MedTech problems rarely belong to a single function.",
+  paragraphs: [
+    "I have spent my career on the cross-functional side of medical technology — the programs where engineering, quality, regulatory, and operations each hold part of the answer and none of them hold the schedule. What struck me repeatedly was how rarely those problems failed for technical reasons. They failed because nobody owned the space between the teams.",
+    "That is the work I wanted to do properly. Not advising from outside the program, and not executing a task list handed down from it — sitting inside the problem with enough technical depth to argue about the engineering and enough delivery experience to keep it moving.",
+  ],
+  attribution: "Kartikeye Khanna, Founder & Principal",
+};
+
 export const operatingPhilosophy = {
   eyebrow: "HOW WE THINK ABOUT THE WORK",
   heading: "Operating philosophy",

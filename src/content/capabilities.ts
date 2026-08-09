@@ -45,6 +45,8 @@ export const capabilityGroups: CapabilityGroup[] = [
   },
 ];
 
+export type CapabilityLayout = "diagram" | "technical" | "documentation" | "delivery";
+
 export type ServiceArea = {
   title: string;
   items: string[];
@@ -69,6 +71,15 @@ export type Capability = {
   relatedCapabilities: string[];
   relatedSectors: string[];
   qualifierNote?: string;
+  /**
+   * Controls how the detail page is composed. Content-specific storytelling
+   * on a shared design system: strategy pages argue with diagrams, hardware
+   * pages lead with technical imagery, regulated pages present structured
+   * documentation, delivery pages show timelines and governance.
+   */
+  layout: CapabilityLayout;
+  /** Image slot for layouts that lead with photography. */
+  imageSlot?: "capabilityEngineering" | "capabilityManufacturing" | "capabilityProduct" | "capabilityGlobal";
 };
 
 export const capabilities: Capability[] = [
@@ -128,9 +139,10 @@ export const capabilities: Capability[] = [
       "Capability gap analysis and recommended operating model",
       "Executive decision briefing",
     ],
-    lifecycleStages: ["strategy", "scale"],
+    lifecycleStages: ["strategy", "concept", "scale"],
     relatedCapabilities: ["product-development-rd", "commercialization", "india-global-execution"],
     relatedSectors: ["medical-devices", "digital-health-samd", "capital-equipment"],
+    layout: "diagram",
   },
   {
     slug: "product-development-rd",
@@ -190,9 +202,11 @@ export const capabilities: Capability[] = [
       "V&V strategy and test plan structure",
       "Design transfer readiness assessment",
     ],
-    lifecycleStages: ["strategy", "develop", "validate", "industrialize"],
+    lifecycleStages: ["strategy", "concept", "develop", "validate", "industrialize"],
     relatedCapabilities: ["engineering-technical", "quality-compliance", "regulatory-market-access"],
     relatedSectors: ["medical-devices", "surgical-interventional", "drug-delivery-combination-products"],
+    layout: "technical",
+    imageSlot: "capabilityProduct",
     qualifierNote:
       "Stallion coordinates and structures design-control activity. Approval of design outputs, design history file records, and quality-system decisions remains with the client's authorized personnel.",
   },
@@ -252,9 +266,11 @@ export const capabilities: Capability[] = [
       "Analysis reports with methodology stated",
       "Documentation consistent with the client's existing standards",
     ],
-    lifecycleStages: ["develop", "validate", "industrialize", "sustain"],
+    lifecycleStages: ["concept", "develop", "validate", "industrialize", "sustain"],
     relatedCapabilities: ["product-development-rd", "manufacturing-supply-chain", "post-market-lifecycle"],
     relatedSectors: ["medical-devices", "capital-equipment", "consumables-disposables"],
+    layout: "technical",
+    imageSlot: "capabilityEngineering",
     qualifierNote:
       "Technical specialists are identified and engaged based on the specific scope of each engagement. Stallion does not maintain every discipline permanently in-house, and says so rather than implying otherwise.",
   },
@@ -316,9 +332,10 @@ export const capabilities: Capability[] = [
       "Data and analytics roadmap",
       "Release and change-management structure for software products",
     ],
-    lifecycleStages: ["strategy", "develop", "validate", "launch", "sustain"],
+    lifecycleStages: ["strategy", "concept", "develop", "validate", "launch", "sustain"],
     relatedCapabilities: ["product-development-rd", "regulatory-market-access", "quality-compliance"],
     relatedSectors: ["digital-health-samd", "connected-devices", "diagnostics-ivd"],
+    layout: "diagram",
     qualifierNote:
       "Cybersecurity, software validation, and AI evidence activities are coordinated by Stallion and executed with appropriately qualified specialists. Stallion does not present itself as a certifying or testing body.",
   },
@@ -379,9 +396,10 @@ export const capabilities: Capability[] = [
       "Market-expansion sequencing plan",
       "Change-impact assessment structure",
     ],
-    lifecycleStages: ["strategy", "develop", "validate", "launch", "scale"],
+    lifecycleStages: ["strategy", "concept", "develop", "validate", "launch", "scale"],
     relatedCapabilities: ["quality-compliance", "clinical-evidence", "product-development-rd"],
     relatedSectors: ["medical-devices", "digital-health-samd", "diagnostics-ivd"],
+    layout: "documentation",
     qualifierNote:
       "Stallion provides regulatory strategy, planning, and program coordination, and engages appropriately qualified regulatory professionals where an engagement requires them. Stallion does not act as regulatory agent or authorized representative, and does not provide legal advice. Submission content and regulatory decisions remain the client's responsibility.",
   },
@@ -446,6 +464,7 @@ export const capabilities: Capability[] = [
     lifecycleStages: ["develop", "validate", "industrialize", "scale", "sustain"],
     relatedCapabilities: ["regulatory-market-access", "manufacturing-supply-chain", "post-market-lifecycle"],
     relatedSectors: ["medical-devices", "contract-manufacturing-suppliers", "consumables-disposables"],
+    layout: "documentation",
     qualifierNote:
       "Stallion provides quality consulting and program execution support. Auditing, quality-system approval, and release decisions requiring designated or certified personnel are performed by appropriately qualified individuals, and accountability for the quality system remains with the client.",
   },
@@ -502,9 +521,10 @@ export const capabilities: Capability[] = [
       "Clinical program plan with cross-functional dependencies",
       "Post-market evidence program structure",
     ],
-    lifecycleStages: ["strategy", "validate", "launch", "sustain"],
+    lifecycleStages: ["strategy", "concept", "validate", "launch", "sustain"],
     relatedCapabilities: ["regulatory-market-access", "commercialization", "post-market-lifecycle"],
     relatedSectors: ["medical-devices", "diagnostics-ivd", "surgical-interventional"],
+    layout: "documentation",
     qualifierNote:
       "Stallion provides evidence planning and program coordination. Clinical investigation design, medical judgment, medical writing, and clinical oversight are performed by appropriately qualified clinical and medical professionals. Stallion does not provide medical advice or hold clinical credentials.",
   },
@@ -569,6 +589,8 @@ export const capabilities: Capability[] = [
     lifecycleStages: ["industrialize", "launch", "scale", "sustain"],
     relatedCapabilities: ["engineering-technical", "quality-compliance", "india-global-execution"],
     relatedSectors: ["contract-manufacturing-suppliers", "consumables-disposables", "capital-equipment"],
+    layout: "technical",
+    imageSlot: "capabilityManufacturing",
   },
   {
     slug: "commercialization",
@@ -630,6 +652,7 @@ export const capabilities: Capability[] = [
     lifecycleStages: ["launch", "scale"],
     relatedCapabilities: ["strategy-growth", "clinical-evidence", "india-global-execution"],
     relatedSectors: ["medical-devices", "capital-equipment", "digital-health-samd"],
+    layout: "delivery",
     qualifierNote:
       "Reimbursement and market access activities are coordinated by Stallion and executed with appropriately qualified specialists where local expertise or licensure is required.",
   },
@@ -692,9 +715,10 @@ export const capabilities: Capability[] = [
       "Portfolio view with prioritization logic",
       "Executive reporting structure and cadence",
     ],
-    lifecycleStages: ["strategy", "develop", "validate", "industrialize", "launch", "scale", "sustain"],
+    lifecycleStages: ["strategy", "concept", "develop", "validate", "industrialize", "launch", "scale", "sustain"],
     relatedCapabilities: ["product-development-rd", "quality-compliance", "manufacturing-supply-chain"],
     relatedSectors: ["medical-devices", "capital-equipment", "surgical-interventional"],
+    layout: "delivery",
   },
   {
     slug: "post-market-lifecycle",
@@ -757,6 +781,7 @@ export const capabilities: Capability[] = [
     lifecycleStages: ["scale", "sustain"],
     relatedCapabilities: ["engineering-technical", "quality-compliance", "program-portfolio-transformation"],
     relatedSectors: ["capital-equipment", "medical-devices", "connected-devices"],
+    layout: "delivery",
   },
   {
     slug: "india-global-execution",
@@ -819,6 +844,8 @@ export const capabilities: Capability[] = [
     lifecycleStages: ["develop", "industrialize", "scale", "sustain"],
     relatedCapabilities: ["manufacturing-supply-chain", "engineering-technical", "strategy-growth"],
     relatedSectors: ["contract-manufacturing-suppliers", "medical-devices", "consumables-disposables"],
+    layout: "technical",
+    imageSlot: "capabilityGlobal",
     qualifierNote:
       "Stallion supports market assessment and execution planning. It does not provide legal, tax, or local regulatory representation, and does not maintain established offices in every market it supports. Local licensed advisors are engaged where required.",
   },
