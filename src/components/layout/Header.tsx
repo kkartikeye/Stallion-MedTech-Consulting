@@ -35,7 +35,7 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 ${
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-[color,background-color,transform] duration-150 active:scale-[0.96] ${
                       active
                         ? "border border-slate-200 bg-white text-slate-950 shadow-sm"
                         : "text-slate-600 hover:bg-white hover:text-slate-950"
@@ -59,7 +59,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="inline-flex items-center justify-center rounded-full p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
+              className="inline-flex items-center justify-center rounded-full p-2 text-slate-700 transition-transform duration-150 hover:bg-slate-100 active:scale-90 lg:hidden"
             >
               {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
             </button>
@@ -69,7 +69,8 @@ export function Header() {
             <nav
               id="mobile-nav"
               aria-label="Mobile"
-              className="border-t border-slate-200 px-4 pb-4 pt-2 lg:hidden"
+              className="materialize border-t border-slate-200 px-4 pb-4 pt-2 lg:hidden"
+              style={{ transformOrigin: "top" }}
             >
               <ul className="flex flex-col gap-1">
                 {primaryNav.map((item) => {
@@ -80,7 +81,7 @@ export function Header() {
                         href={item.href}
                         onClick={() => setOpen(false)}
                         aria-current={active ? "page" : undefined}
-                        className={`block rounded-xl px-4 py-2.5 text-base font-medium transition-colors ${
+                        className={`block rounded-xl px-4 py-2.5 text-base font-medium transition-[color,background-color,transform] active:scale-[0.98] ${
                           active
                             ? "bg-slate-50 font-semibold text-slate-950"
                             : "text-slate-700 hover:bg-slate-50"

@@ -122,6 +122,25 @@ body {
   animation-delay: 0.24s;
 }
 
+/* Materialize: for surfaces that appear in response to state (alerts,
+   success panels, menus) rather than on initial page load. Blur + scale
+   together so the surface reads as arriving, not just fading. */
+@keyframes materialize {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.materialize {
+  animation: materialize 0.3s var(--ease-out-quiet) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

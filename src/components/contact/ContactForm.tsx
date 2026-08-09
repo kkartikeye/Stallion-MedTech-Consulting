@@ -26,7 +26,7 @@ const initialValues: ContactFormValues = {
 type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldClasses =
-  "mt-1.5 w-full rounded-button border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-950 placeholder:text-slate-400 focus-visible:border-accent-500 focus-visible:outline-2 focus-visible:outline-accent-500";
+  "mt-1.5 w-full rounded-button border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-950 placeholder:text-slate-400 transition-colors duration-150 focus-visible:border-accent-500 focus-visible:outline-2 focus-visible:outline-accent-500";
 
 export function ContactForm() {
   const [values, setValues] = useState<ContactFormValues>(initialValues);
@@ -90,7 +90,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="flex flex-col items-start gap-3 rounded-card border border-accent-200 bg-accent-50 p-8"
+        className="materialize flex flex-col items-start gap-3 rounded-card border border-accent-200 bg-accent-50 p-8"
       >
         <CheckCircle2 className="h-8 w-8 text-accent-600" aria-hidden="true" />
         <h3 className="text-lg font-semibold text-slate-950">Thank you for reaching out.</h3>
@@ -113,7 +113,7 @@ export function ContactForm() {
       {status === "error" && serverMessage ? (
         <div
           role="alert"
-          className="flex items-start gap-3 rounded-card border border-red-200 bg-red-50 p-4 text-sm text-red-800"
+          className="materialize flex items-start gap-3 rounded-card border border-red-200 bg-red-50 p-4 text-sm text-red-800"
         >
           <TriangleAlert className="mt-0.5 h-4.5 w-4.5 shrink-0" aria-hidden="true" />
           <span>{serverMessage}</span>
@@ -252,7 +252,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white transition-[background-color,transform] duration-200 ease-out-quiet hover:bg-slate-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 sm:w-auto"
       >
         {status === "submitting" ? (
           <>
