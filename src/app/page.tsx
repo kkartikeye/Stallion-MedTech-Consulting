@@ -1,21 +1,32 @@
 import { Hero } from "@/components/sections/home/Hero";
-import { Challenges } from "@/components/sections/home/Challenges";
-import { Capabilities } from "@/components/sections/home/Capabilities";
-import { EngagementModels } from "@/components/sections/home/EngagementModels";
-import { ProcessPreview } from "@/components/sections/home/ProcessPreview";
+import { WhereWeHelp } from "@/components/sections/home/WhereWeHelp";
+import { LifecycleSection } from "@/components/sections/home/LifecycleSection";
+import { Problems } from "@/components/sections/home/Problems";
+import { SectorsPreview } from "@/components/sections/home/SectorsPreview";
 import { WhyStallion } from "@/components/sections/home/WhyStallion";
-import { ClosingCta } from "@/components/sections/home/ClosingCta";
+import { ApproachPreview } from "@/components/sections/home/ApproachPreview";
+import { InsightsPreview } from "@/components/sections/home/InsightsPreview";
+import { CtaSection } from "@/components/ui/CtaSection";
+import { closingCta } from "@/content/home";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Challenges />
-      <Capabilities />
-      <EngagementModels />
-      <ProcessPreview />
+      <WhereWeHelp />
+      <LifecycleSection />
+      <Problems />
+      <SectorsPreview />
       <WhyStallion />
-      <ClosingCta />
+      <ApproachPreview />
+      <InsightsPreview />
+      <CtaSection
+        eyebrow={closingCta.eyebrow}
+        heading={closingCta.heading}
+        copy={closingCta.copy}
+        cta={closingCta.primaryCta}
+        secondaryCta={closingCta.secondaryCta}
+      />
     </>
   );
 }

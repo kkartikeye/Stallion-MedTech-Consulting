@@ -1,191 +1,126 @@
+/**
+ * Homepage narrative.
+ *
+ * The story order is deliberate: what Stallion is → the breadth of where it
+ * helps → where it fits in the lifecycle → the client's own problem in
+ * their words → sectors → why this firm → how work is structured →
+ * insights → conversation.
+ */
+
 export const hero = {
-  eyebrow: "MEDTECH CONSULTING · PROJECT LEADERSHIP · TECHNICAL EXECUTION",
-  headline: "Leadership for complex MedTech execution.",
+  eyebrow: "MEDTECH CONSULTING & EXECUTION",
+  headline: "Strategy to execution across the MedTech lifecycle.",
   supporting:
-    "Stallion MedTech Consulting helps medical device companies move critical initiatives forward—from project definition and cross-functional planning through technical execution, issue resolution, and delivery.",
-  primaryCta: { label: "Discuss a Project", href: "/contact" },
-  secondaryCta: { label: "Explore Our Capabilities", href: "/services" },
+    "The hardest problems in medical technology cross engineering, quality, regulatory, operations, and commercial lines at once. Stallion works those intersections — strategic enough to advise, technical enough to understand the product, practical enough to deliver.",
+  primaryCta: { label: "Discuss a Challenge", href: "/contact" },
+  secondaryCta: { label: "Explore Capabilities", href: "/capabilities" },
 };
 
-export const executionPanel = {
-  label: "Engagement Focus",
-  stages: [
-    { id: "define", label: "Define", detail: "Scope, ownership, success criteria" },
-    { id: "plan", label: "Plan", detail: "Workstreams, milestones, dependencies" },
-    { id: "execute", label: "Execute", detail: "Coordination, issue resolution" },
-    { id: "transition", label: "Transition", detail: "Handoff, sustainable ownership" },
-  ],
-  workstreams: [
-    { name: "Program Leadership", status: "On track" },
-    { name: "Design Transfer", status: "In progress" },
-    { name: "Supplier Coordination", status: "Monitoring" },
-    { name: "Sustaining Engineering", status: "On track" },
-  ],
-  note: "Illustrative execution view — structured for a representative MedTech program.",
-};
-
-export const challenges = {
-  label: "WHEN TO ENGAGE",
-  heading: "When critical work needs focused leadership",
-  items: [
-    "A critical initiative lacks dedicated ownership",
-    "Cross-functional teams are not aligned",
-    "Timelines, risks, or decisions are unclear",
-    "Sustaining issues are competing with new-product priorities",
-    "Internal engineering capacity is constrained",
-    "Suppliers or external partners need stronger coordination",
-    "Leadership needs clearer visibility into execution",
-  ],
-};
-
-export type CapabilityGroup = {
-  id: string;
-  title: string;
-  items: string[];
-  note?: string;
-};
-
-export const capabilities = {
-  label: "CORE CAPABILITIES",
-  heading: "Capabilities organized around how MedTech work actually gets done",
-  groups: [
+/**
+ * "Where we help" — the breadth statement. Deliberately fewer, broader
+ * groupings than the twelve capabilities, so the homepage communicates
+ * scope without becoming a directory.
+ */
+export const whereWeHelp = {
+  eyebrow: "WHERE WE HELP",
+  heading: "Broader than program management",
+  copy: "Program leadership is where Stallion started and remains a core strength. It is now one part of a wider capability set spanning the product and business lifecycle.",
+  areas: [
     {
-      id: "project-program-leadership",
-      title: "Project and Program Leadership",
-      items: [
-        "Project planning and execution",
-        "Integrated schedules and milestones",
-        "Governance and decision pathways",
-        "Risk, issue, and dependency management",
-        "Cross-functional leadership",
-        "Executive and stakeholder communication",
-        "Portfolio visibility and prioritization",
-      ],
+      title: "Strategy & Growth",
+      detail: "Portfolio, product, and market decisions tested against what can actually be built.",
+      capabilitySlug: "strategy-growth",
     },
     {
-      id: "product-development-support",
-      title: "Product Development Support",
-      items: [
-        "Development planning",
-        "Requirements and deliverables coordination",
-        "Design review readiness",
-        "Verification and validation planning support",
-        "Design transfer coordination",
-        "Commercialization readiness",
-        "Supplier and partner coordination",
-      ],
+      title: "Product & R&D",
+      detail: "Development programs where technical work and design controls move as one plan.",
+      capabilitySlug: "product-development-rd",
     },
     {
-      id: "sustaining-engineering-leadership",
-      title: "Sustaining Engineering Leadership",
-      items: [
-        "Product improvement initiatives",
-        "Field and customer issue coordination",
-        "Complaint-related cross-functional projects",
-        "Root-cause investigation coordination",
-        "Engineering change execution",
-        "Obsolescence and continuity initiatives",
-        "Product lifecycle planning",
-      ],
+      title: "Regulatory & Quality",
+      detail: "Pathway strategy, submission programs, and remediation run with real accountability.",
+      capabilitySlug: "regulatory-market-access",
     },
     {
-      id: "engineering-technical-support",
-      title: "Engineering and Technical Support",
-      items: [
-        "Systems engineering",
-        "Mechanical engineering",
-        "Electrical engineering",
-        "Software and firmware",
-        "Test engineering",
-        "Verification and validation",
-        "Manufacturing engineering",
-        "Supplier engineering",
-        "Technical documentation",
-        "Data analysis",
-      ],
-      note: "Technical specialists are engaged based on scope and project requirements.",
+      title: "Engineering & Digital",
+      detail: "Specialist engineering capacity, software lifecycle, connectivity, and AI-enabled products.",
+      capabilitySlug: "engineering-technical",
     },
     {
-      id: "operational-process-improvement",
-      title: "Operational and Process Improvement",
-      items: [
-        "Product-development process improvement",
-        "Governance and workflow design",
-        "Project intake and prioritization",
-        "Reporting and management dashboards",
-        "Cross-functional operating models",
-        "Continuous improvement initiatives",
-      ],
+      title: "Operations & Supply",
+      detail: "Design transfer, manufacturing readiness, supplier development, and continuity.",
+      capabilitySlug: "manufacturing-supply-chain",
     },
     {
-      id: "india-global-execution",
-      title: "India and Global Execution Support",
-      items: [
-        "Coordination between global and India-based teams",
-        "Supplier and manufacturing-partner engagement",
-        "Local execution support",
-        "Cross-border project coordination",
-        "Engineering resource development",
-        "Business and operational expansion support",
-      ],
-    },
-  ] satisfies CapabilityGroup[],
-};
-
-export const engagementModels = {
-  label: "FLEXIBLE DELIVERY",
-  heading: "Support built around the work",
-  models: [
-    {
-      id: "embedded-leadership",
-      title: "Embedded Project Leadership",
-      description:
-        "A project leader works alongside the client's organization to lead a defined project, program, or portfolio.",
+      title: "Commercialization",
+      detail: "Launch readiness, market entry, and the channel decisions that determine whether it lands.",
+      capabilitySlug: "commercialization",
     },
     {
-      id: "targeted-advisory",
-      title: "Targeted Advisory Support",
-      description:
-        "Focused help with project recovery, planning, governance, prioritization, execution strategy, or operational improvement.",
+      title: "Program & Transformation",
+      detail: "Program leadership, recovery, portfolio governance, and PMO development.",
+      capabilitySlug: "program-portfolio-transformation",
     },
     {
-      id: "integrated-delivery",
-      title: "Integrated Delivery Team",
-      description:
-        "Stallion provides project leadership and assembles the technical specialists required for a defined body of work.",
+      title: "Lifecycle & Post-Market",
+      detail: "Sustaining engineering, field issues, obsolescence, and the long tail after launch.",
+      capabilitySlug: "post-market-lifecycle",
     },
   ],
 };
 
-export const processPreview = {
-  heading: "How we work",
-  stages: [
-    { number: "01", title: "Understand", detail: "Clarify need, context, constraints, and outcome." },
-    { number: "02", title: "Structure", detail: "Define scope, ownership, plan, and risks." },
-    { number: "03", title: "Execute", detail: "Lead the work and coordinate contributors." },
-    { number: "04", title: "Transition", detail: "Transfer knowledge and sustainable ownership." },
-  ],
-  note: "The engagement is scaled to the problem—not forced into a predetermined consulting model.",
-  cta: { label: "See how we work", href: "/how-we-work" },
+export const matrixIntro = {
+  eyebrow: "WHERE STALLION ENGAGES",
+  heading: "Capability meets lifecycle stage",
+  copy: "MedTech problems cross functions and stages at the same time. This is where Stallion can engage — and the intersections are usually where the difficulty actually lives.",
+  legend: {
+    active: "Common engagement point",
+    inactive: "Available as part of a broader program",
+  },
 };
 
 export const whyStallion = {
-  label: "WHY STALLION",
-  heading: "Grounded, execution-first partnership",
-  items: [
-    "Project leadership grounded in technical understanding",
-    "Practical support focused on execution",
-    "Flexible access to specialized capabilities",
-    "Clear ownership and communication",
-    "Cross-functional operating experience",
-    "Connection between strategic priorities and daily delivery",
-    "Flexible engagement models for different company sizes",
+  eyebrow: "WHY STALLION",
+  heading: "A specialist firm, structured to be useful",
+  copy: "Stallion is deliberately small. The engagement model is built around that fact rather than working to obscure it.",
+  reasons: [
+    {
+      title: "Technical fluency, not just process",
+      detail:
+        "Engineering background means program conversations happen at the level of the actual problem, without translation through a technical intermediary.",
+    },
+    {
+      title: "Strategy and execution in one engagement",
+      detail:
+        "Advice that never becomes a plan, and delivery that never questions the direction, are both common failure modes. Holding both avoids the handoff between them.",
+    },
+    {
+      title: "Cross-functional operating experience",
+      detail:
+        "Most of the difficulty in MedTech sits between engineering, quality, regulatory, operations, and commercial. That boundary is the working environment, not an exception.",
+    },
+    {
+      title: "Teams built for the problem",
+      detail:
+        "Rather than staffing from a fixed bench, Stallion scopes the disciplines the work requires and engages appropriately qualified specialists for them.",
+    },
+    {
+      title: "Senior involvement throughout",
+      detail:
+        "The person who scopes the engagement stays accountable for delivering it. There is no handoff to a junior team after the proposal.",
+    },
+    {
+      title: "Global reach with an India connection",
+      detail:
+        "Direct experience coordinating engineering and manufacturing work between mature MedTech markets and India-based teams and suppliers.",
+    },
   ],
 };
 
 export const closingCta = {
-  heading: "Let's discuss what needs to move forward.",
-  copy: "Tell us about the project, challenge, or capability gap you are working through. We'll help determine the right structure, leadership, and technical support for the engagement.",
-  primaryCta: { label: "Discuss a Project", href: "/contact" },
-  secondaryCta: { label: "Review Services", href: "/services" },
+  eyebrow: "START HERE",
+  heading: "What challenge are you trying to solve?",
+  copy: "Most useful conversations start with a problem rather than a service. Describe the situation and we will help define it, determine which expertise it actually requires, and propose a structure for the engagement.",
+  primaryCta: { label: "Start a Conversation", href: "/contact" },
+  secondaryCta: { label: "See how we work", href: "/how-we-work" },
 };

@@ -8,6 +8,7 @@ export function SectionHeading({
   tone = "light",
   align = "left",
   className = "",
+  as: Tag = "h2",
 }: {
   eyebrow?: string;
   heading: ReactNode;
@@ -15,28 +16,23 @@ export function SectionHeading({
   tone?: "light" | "dark";
   align?: "left" | "center";
   className?: string;
+  as?: "h1" | "h2" | "h3";
 }) {
   return (
-    <div
-      className={`max-w-2xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}
-    >
+    <div className={`max-w-2xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
       {eyebrow ? (
         <Eyebrow tone={tone} className="mb-4">
           {eyebrow}
         </Eyebrow>
       ) : null}
-      <h2
-        className={`text-balance-pretty text-3xl font-semibold tracking-tight sm:text-4xl md:text-[2.75rem] ${
-          tone === "dark" ? "text-white" : "text-slate-950"
-        }`}
+      <Tag
+        className={`type-h2 text-balance-pretty ${tone === "dark" ? "text-white" : "text-ink-950"}`}
       >
         {heading}
-      </h2>
+      </Tag>
       {copy ? (
         <p
-          className={`mt-4 text-base leading-relaxed sm:text-lg ${
-            tone === "dark" ? "text-slate-300" : "text-slate-600"
-          }`}
+          className={`type-lead mt-5 ${tone === "dark" ? "text-ink-200" : "text-ink-600"}`}
         >
           {copy}
         </p>

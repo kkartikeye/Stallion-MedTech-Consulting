@@ -2,6 +2,28 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-source-serif);
+
+  /* Ink: the primary dark brand tone. Cooler and deeper than slate-950,
+     which keeps large dark sections from reading as flat grey-blue. */
+  --color-ink-50: #f4f6f8;
+  --color-ink-100: #e4e8ed;
+  --color-ink-200: #c7cfd9;
+  --color-ink-300: #9aa8b9;
+  --color-ink-400: #6b7d94;
+  --color-ink-500: #4c5f77;
+  --color-ink-600: #384a60;
+  --color-ink-700: #2a394b;
+  --color-ink-800: #1b2635;
+  --color-ink-900: #111a26;
+  --color-ink-950: #0a0f1a;
+
+  /* Sand: warm neutral grounds. Used instead of pure grey so the editorial
+     sections feel like paper rather than UI chrome. */
+  --color-sand-50: #fbfaf8;
+  --color-sand-100: #f5f3ef;
+  --color-sand-200: #eae7e0;
+  --color-sand-300: #d9d5cb;
 
   /* Restrained accent: desaturated steel-teal. Used sparingly as a signal
      color, never as a dominant brand hue. */
@@ -21,8 +43,9 @@
   --radius-card: 1.25rem;
   --radius-panel: 1.5rem;
 
-  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
-  --shadow-panel: 0 1px 1px 0 rgb(15 23 42 / 0.05), 0 24px 48px -20px rgb(15 23 42 / 0.35);
+  --shadow-card: 0 1px 2px 0 rgb(10 15 26 / 0.04), 0 8px 24px -12px rgb(10 15 26 / 0.12);
+  --shadow-panel: 0 1px 1px 0 rgb(10 15 26 / 0.05), 0 24px 48px -20px rgb(10 15 26 / 0.35);
+  --shadow-menu: 0 1px 2px 0 rgb(10 15 26 / 0.06), 0 28px 60px -24px rgb(10 15 26 / 0.28);
 
   --ease-out-quiet: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -33,14 +56,81 @@
 
 html {
   scroll-behavior: smooth;
+  /* Floating header height + breathing room, so in-page anchors never land
+     underneath the fixed chrome. */
+  scroll-padding-top: 7rem;
 }
 
 body {
   background: #ffffff;
-  color: #0f172a;
+  color: var(--color-ink-950);
 }
 
-/* Section rhythm: ~80px desktop, tighter on mobile. */
+/* --- Typography ---------------------------------------------------------
+   Tracking and leading are size-specific: large display type reads too
+   loose at default spacing and needs negative tracking plus tight leading,
+   while body copy stays near zero. A single global letter-spacing would be
+   wrong at one end or the other. */
+
+.type-display {
+  font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+
+.type-h1 {
+  font-size: clamp(2.125rem, 1.5rem + 2.8vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.type-h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.9vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+.type-h3 {
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.type-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+}
+
+/* Editorial serif, reserved for a small number of large statements. */
+.type-editorial {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 1.15rem + 1.6vw, 2.375rem);
+  line-height: 1.25;
+}
+
+.type-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.text-balance-pretty {
+  text-wrap: pretty;
+}
+
+.text-balance-tight {
+  text-wrap: balance;
+}
+
+/* Section rhythm. */
 .section-y {
   padding-top: 4.5rem;
   padding-bottom: 4.5rem;
@@ -48,18 +138,26 @@ body {
 
 @media (min-width: 768px) {
   .section-y {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
   }
 }
 
-.text-balance-pretty {
-  text-wrap: pretty;
+.section-y-lg {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-y-lg {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
 }
 
 /* --- Micro-interactions ------------------------------------------------ */
 
-/* Card lift used across capability, service, and engagement cards. */
+/* Card lift used across capability, sector, and insight cards. */
 .card-lift {
   transition:
     transform 0.35s var(--ease-out-quiet),
@@ -69,8 +167,15 @@ body {
 
 .card-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 24px 48px -20px rgb(15 23 42 / 0.18);
+  box-shadow: 0 24px 48px -20px rgb(10 15 26 / 0.18);
   border-color: rgb(100 116 139 / 0.4);
+}
+
+/* Feedback on press, not only on release — and never dependent on hover,
+   which touch devices do not have. */
+.card-lift:active {
+  transform: translateY(-1px) scale(0.995);
+  transition-duration: 0.12s;
 }
 
 @media (hover: none) {
@@ -93,7 +198,16 @@ body {
   background-size: 100% 1px;
 }
 
-/* Staggered entrance for hero copy. */
+/* Arrow that advances in the direction of travel on hover. */
+.cta-arrow {
+  transition: transform 0.3s var(--ease-out-quiet);
+}
+
+.group:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+/* Staggered entrance for above-the-fold copy. */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -122,8 +236,8 @@ body {
   animation-delay: 0.24s;
 }
 
-/* Materialize: for surfaces that appear in response to state (alerts,
-   success panels, menus) rather than on initial page load. Blur + scale
+/* Materialize: for surfaces that appear in response to state (menus,
+   alerts, success panels) rather than on initial page load. Blur + scale
    together so the surface reads as arriving, not just fading. */
 @keyframes materialize {
   from {
@@ -141,6 +255,25 @@ body {
   animation: materialize 0.3s var(--ease-out-quiet) both;
 }
 
+/* Mega-menu panel: originates from the trigger above it, so the spatial
+   relationship between nav item and panel stays obvious. */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.menu-in {
+  transform-origin: top center;
+  animation: menu-in 0.22s var(--ease-out-quiet) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -156,9 +289,60 @@ body {
   }
 }
 
+/* Reduced transparency: make translucent chrome solid rather than frosted. */
+@media (prefers-reduced-transparency: reduce) {
+  .chrome-translucent {
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+  }
+}
+
 /* Visible, high-contrast focus ring for keyboard navigation. */
 :focus-visible {
   outline: 2px solid var(--color-accent-500);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* --- Editorial article body -------------------------------------------- */
+
+.prose-article {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-ink-600);
+}
+
+.prose-article > * + * {
+  margin-top: 1.5rem;
+}
+
+.prose-article h2 {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--color-ink-950);
+}
+
+.prose-article h3 {
+  margin-top: 2.25rem;
+  font-size: 1.175rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--color-ink-950);
+}
+
+.prose-article ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.prose-article li + li {
+  margin-top: 0.5rem;
+}
+
+.prose-article strong {
+  font-weight: 600;
+  color: var(--color-ink-900);
 }

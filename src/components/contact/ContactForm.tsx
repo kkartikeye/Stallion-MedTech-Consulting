@@ -1,10 +1,15 @@
 "use client";
 
 import { useId, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { CheckCircle2, Loader2, TriangleAlert } from "lucide-react";
 import { businessDetails } from "@/content/site";
-import { desiredTimingOptions, projectTypes } from "@/content/contact";
+import {
+  capabilityOptions,
+  projectStages,
+  engagementTimings,
+  privacyNote,
+} from "@/content/contact";
 import {
   hasErrors,
   validateContactForm,
@@ -14,19 +19,20 @@ import {
 
 const initialValues: ContactFormValues = {
   name: "",
-  company: "",
   email: "",
-  phone: "",
-  projectType: "",
-  description: "",
-  timing: desiredTimingOptions[0],
+  company: "",
+  role: "",
+  capability: "",
+  stage: "",
+  timing: "",
+  challenge: "",
   website: "",
 };
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldClasses =
-  "mt-1.5 w-full rounded-button border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-950 placeholder:text-slate-400 transition-colors duration-150 focus-visible:border-accent-500 focus-visible:outline-2 focus-visible:outline-accent-500";
+  "mt-1.5 w-full rounded-button border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-950 placeholder:text-ink-500 transition-colors duration-150 focus-visible:border-accent-500 focus-visible:outline-2 focus-visible:outline-accent-500";
 
 export function ContactForm() {
   const [values, setValues] = useState<ContactFormValues>(initialValues);
@@ -37,6 +43,8 @@ export function ContactForm() {
 
   function updateField<K extends keyof ContactFormValues>(key: K, value: ContactFormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
+    // Clear the field's error as soon as the user edits it — validating
+    // inline rather than only on submit.
     setErrors((prev) => {
       if (!prev[key]) return prev;
       const next = { ...prev };
@@ -67,14 +75,15 @@ export function ContactForm() {
         body: JSON.stringify(values),
       });
 
-      const data: { success?: boolean; message?: string; errors?: ContactFormErrors } = await response
-        .json()
-        .catch(() => ({}));
+      const data: { success?: boolean; message?: string; errors?: ContactFormErrors } =
+        await response.json().catch(() => ({}));
 
       if (!response.ok || !data.success) {
         if (data.errors) setErrors(data.errors);
         setStatus("error");
-        setServerMessage(data.message ?? "Something went wrong while sending your message. Please try again.");
+        setServerMessage(
+          data.message ?? "Something went wrong while sending your message. Please try again.",
+        );
         return;
       }
 
@@ -93,14 +102,15 @@ export function ContactForm() {
         className="materialize flex flex-col items-start gap-3 rounded-card border border-accent-200 bg-accent-50 p-8"
       >
         <CheckCircle2 className="h-8 w-8 text-accent-600" aria-hidden="true" />
-        <h3 className="text-lg font-semibold text-slate-950">Thank you for reaching out.</h3>
-        <p className="text-sm leading-relaxed text-slate-600">
-          We&rsquo;ve received your message and will follow up soon to discuss next steps.
+        <h3 className="text-lg font-semibold text-ink-950">Thanks — that came through.</h3>
+        <p className="text-sm leading-relaxed text-ink-600">
+          We&rsquo;ll read it properly and follow up to understand the situation before suggesting
+          anything.
         </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-2 text-sm font-semibold text-accent-700 underline underline-offset-4"
+          className="mt-2 text-sm font-semibold text-accent-700 underline underline-offset-4 transition-transform active:scale-[0.98]"
         >
           Send another message
         </button>
@@ -115,7 +125,7 @@ export function ContactForm() {
           role="alert"
           className="materialize flex items-start gap-3 rounded-card border border-red-200 bg-red-50 p-4 text-sm text-red-800"
         >
-          <TriangleAlert className="mt-0.5 h-4.5 w-4.5 shrink-0" aria-hidden="true" />
+          <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
           <span>{serverMessage}</span>
         </div>
       ) : null}
@@ -131,18 +141,6 @@ export function ContactForm() {
           autoComplete="name"
         />
         <Field
-          id={`${formId}-company`}
-          label="Company"
-          required
-          error={errors.company}
-          value={values.company}
-          onChange={(v) => updateField("company", v)}
-          autoComplete="organization"
-        />
-      </div>
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field
           id={`${formId}-email`}
           label="Work email"
           type="email"
@@ -152,90 +150,81 @@ export function ContactForm() {
           onChange={(v) => updateField("email", v)}
           autoComplete="email"
         />
-        <Field
-          id={`${formId}-phone`}
-          label="Phone"
-          type="tel"
-          optional
-          error={errors.phone}
-          value={values.phone}
-          onChange={(v) => updateField("phone", v)}
-          autoComplete="tel"
-        />
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label htmlFor={`${formId}-projectType`} className="text-sm font-medium text-slate-800">
-            Project type <span aria-hidden="true" className="text-accent-600">*</span>
-          </label>
-          <select
-            id={`${formId}-projectType`}
-            required
-            value={values.projectType}
-            onChange={(e) => updateField("projectType", e.target.value)}
-            aria-invalid={Boolean(errors.projectType)}
-            aria-describedby={errors.projectType ? `${formId}-projectType-error` : undefined}
-            className={fieldClasses}
-          >
-            <option value="" disabled>
-              Select a project type
-            </option>
-            {projectTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-          {errors.projectType ? (
-            <p id={`${formId}-projectType-error`} className="mt-1.5 text-sm text-red-600">
-              {errors.projectType}
-            </p>
-          ) : null}
-        </div>
-
-        <div>
-          <label htmlFor={`${formId}-timing`} className="text-sm font-medium text-slate-800">
-            Desired timing
-          </label>
-          <select
-            id={`${formId}-timing`}
-            value={values.timing}
-            onChange={(e) => updateField("timing", e.target.value)}
-            className={fieldClasses}
-          >
-            {desiredTimingOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Field
+          id={`${formId}-company`}
+          label="Company"
+          required
+          error={errors.company}
+          value={values.company}
+          onChange={(v) => updateField("company", v)}
+          autoComplete="organization"
+        />
+        <Field
+          id={`${formId}-role`}
+          label="Role"
+          optional
+          error={errors.role}
+          value={values.role}
+          onChange={(v) => updateField("role", v)}
+          autoComplete="organization-title"
+        />
       </div>
 
       <div>
-        <label htmlFor={`${formId}-description`} className="text-sm font-medium text-slate-800">
-          Brief project description <span aria-hidden="true" className="text-accent-600">*</span>
-        </label>
+        <Label htmlFor={`${formId}-challenge`} required>
+          What are you working on?
+        </Label>
         <textarea
-          id={`${formId}-description`}
+          id={`${formId}-challenge`}
           required
           rows={5}
-          value={values.description}
-          onChange={(e) => updateField("description", e.target.value)}
-          aria-invalid={Boolean(errors.description)}
-          aria-describedby={errors.description ? `${formId}-description-error` : undefined}
+          value={values.challenge}
+          onChange={(e) => updateField("challenge", e.target.value)}
+          aria-invalid={Boolean(errors.challenge)}
+          aria-describedby={errors.challenge ? `${formId}-challenge-error` : undefined}
           className={fieldClasses}
-          placeholder="What's the initiative, challenge, or capability gap you're working through?"
+          placeholder="The situation, what has been tried, and what would count as solving it."
         />
-        {errors.description ? (
-          <p id={`${formId}-description-error`} className="mt-1.5 text-sm text-red-600">
-            {errors.description}
-          </p>
+        {errors.challenge ? (
+          <FieldError id={`${formId}-challenge-error`}>{errors.challenge}</FieldError>
         ) : null}
       </div>
 
-      {/* Honeypot: hidden from sighted and keyboard users, visible to bots that fill every field. */}
+      <div className="grid gap-5 sm:grid-cols-3">
+        <SelectField
+          id={`${formId}-capability`}
+          label="Relevant capability"
+          placeholder="Select if known"
+          options={capabilityOptions}
+          value={values.capability}
+          error={errors.capability}
+          onChange={(v) => updateField("capability", v)}
+        />
+        <SelectField
+          id={`${formId}-stage`}
+          label="Project stage"
+          placeholder="Select if known"
+          options={[...projectStages]}
+          value={values.stage}
+          error={errors.stage}
+          onChange={(v) => updateField("stage", v)}
+        />
+        <SelectField
+          id={`${formId}-timing`}
+          label="Timing"
+          placeholder="Select if known"
+          options={[...engagementTimings]}
+          value={values.timing}
+          error={errors.timing}
+          onChange={(v) => updateField("timing", v)}
+        />
+      </div>
+
+      {/* Honeypot: hidden from sighted and keyboard users, visible to bots
+          that fill every field. */}
       <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
         <label htmlFor={`${formId}-website`}>Website</label>
         <input
@@ -249,21 +238,56 @@ export function ContactForm() {
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-button bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white transition-[background-color,transform] duration-200 ease-out-quiet hover:bg-slate-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 sm:w-auto"
-      >
-        {status === "submitting" ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-            Sending…
-          </>
-        ) : (
-          "Submit"
-        )}
-      </button>
+      <div className="flex flex-col gap-4 border-t border-ink-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <p className="max-w-sm text-xs leading-relaxed text-ink-500">{privacyNote}</p>
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-button bg-ink-950 px-6 py-3.5 text-sm font-semibold text-white transition-[background-color,transform] duration-200 ease-out-quiet hover:bg-ink-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 sm:w-auto"
+        >
+          {status === "submitting" ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              Sending…
+            </>
+          ) : (
+            "Discuss Your Challenge"
+          )}
+        </button>
+      </div>
     </form>
+  );
+}
+
+function Label({
+  htmlFor,
+  required,
+  optional,
+  children,
+}: {
+  htmlFor: string;
+  required?: boolean;
+  optional?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <label htmlFor={htmlFor} className="text-sm font-medium text-ink-800">
+      {children}{" "}
+      {required ? (
+        <span aria-hidden="true" className="text-accent-600">
+          *
+        </span>
+      ) : null}
+      {optional ? <span className="text-ink-500">(optional)</span> : null}
+    </label>
+  );
+}
+
+function FieldError({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <p id={id} className="mt-1.5 text-sm text-red-600">
+      {children}
+    </p>
   );
 }
 
@@ -290,15 +314,9 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="text-sm font-medium text-slate-800">
-        {label}{" "}
-        {required ? (
-          <span aria-hidden="true" className="text-accent-600">
-            *
-          </span>
-        ) : null}
-        {optional ? <span className="text-slate-400">(optional)</span> : null}
-      </label>
+      <Label htmlFor={id} required={required} optional={optional}>
+        {label}
+      </Label>
       <input
         id={id}
         type={type}
@@ -310,11 +328,49 @@ function Field({
         aria-describedby={error ? `${id}-error` : undefined}
         className={fieldClasses}
       />
-      {error ? (
-        <p id={`${id}-error`} className="mt-1.5 text-sm text-red-600">
-          {error}
-        </p>
-      ) : null}
+      {error ? <FieldError id={`${id}-error`}>{error}</FieldError> : null}
+    </div>
+  );
+}
+
+function SelectField({
+  id,
+  label,
+  placeholder,
+  options,
+  value,
+  onChange,
+  error,
+}: {
+  id: string;
+  label: string;
+  placeholder: string;
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+}) {
+  return (
+    <div>
+      <Label htmlFor={id} optional>
+        {label}
+      </Label>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className={fieldClasses}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      {error ? <FieldError id={`${id}-error`}>{error}</FieldError> : null}
     </div>
   );
 }
