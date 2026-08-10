@@ -2,6 +2,7 @@ import { PageIntro } from "@/components/ui/PageIntro";
 import { Container } from "@/components/ui/Container";
 import { CtaSection } from "@/components/ui/CtaSection";
 import { SectorCard } from "@/components/cards/SectorCard";
+import { MarginNote } from "@/components/ui/Editorial";
 import { JsonLd } from "@/components/ui/JsonLd";
 import {
   sectorsWithPages,
@@ -47,24 +48,30 @@ export default function MedTechPage() {
         </Container>
       </section>
 
-      <section className="section-y bg-sand-50">
-        <Container>
-          <h2 className="type-h3 text-ink-950">Additional areas we support</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-600">
-            These areas draw on the same capability set. Dedicated pages will follow as the
-            material warrants them.
-          </p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {sectorsWithoutPages.map((sector) => (
-              <li key={sector.slug} className="h-full">
-                <SectorCard sector={sector} />
-              </li>
-            ))}
-          </ul>
+      {sectorsWithoutPages.length > 0 ? (
+        <section className="section-y bg-sand-50">
+          <Container>
+            <h2 className="type-h3 text-ink-950">Additional areas we support</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-600">
+              These areas draw on the same capability set. Dedicated pages will follow as the
+              material warrants them.
+            </p>
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {sectorsWithoutPages.map((sector) => (
+                <li key={sector.slug} className="h-full">
+                  <SectorCard sector={sector} />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
 
-          <p className="mt-10 max-w-3xl rounded-card border border-ink-100 bg-white p-5 text-sm leading-relaxed text-ink-600">
-            {sectorDisclaimer}
-          </p>
+      <section className="section-y-tight bg-sand-50">
+        <Container>
+          <div className="max-w-3xl">
+            <MarginNote label="Note on these pages">{sectorDisclaimer}</MarginNote>
+          </div>
         </Container>
       </section>
 

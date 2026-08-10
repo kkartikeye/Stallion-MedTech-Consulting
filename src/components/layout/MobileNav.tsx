@@ -99,12 +99,16 @@ export function MobileNav({
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 px-3 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-                Also supported
-              </p>
-              <p className="mt-1.5 px-3 text-xs leading-relaxed text-ink-500">
-                {sectorsWithoutPages.map((sector) => sector.shortTitle).join(" · ")}
-              </p>
+              {sectorsWithoutPages.length > 0 ? (
+                <>
+                  <p className="mt-3 px-3 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
+                    Also supported
+                  </p>
+                  <p className="mt-1.5 px-3 text-xs leading-relaxed text-ink-500">
+                    {sectorsWithoutPages.map((sector) => sector.shortTitle).join(" · ")}
+                  </p>
+                </>
+              ) : null}
               <Link
                 href="/medtech"
                 onClick={onNavigate}

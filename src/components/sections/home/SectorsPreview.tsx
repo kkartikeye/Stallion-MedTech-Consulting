@@ -46,12 +46,14 @@ export function SectorsPreview() {
           ))}
         </ul>
 
-        <p className="annotation-sm mt-6 leading-relaxed text-ink-500">
-          Also supported —{" "}
-          <span className="normal-case tracking-normal">
-            {sectorsWithoutPages.map((sector) => sector.title).join(", ")}
-          </span>
-        </p>
+        {sectorsWithoutPages.length > 0 ? (
+          <p className="annotation-sm mt-6 leading-relaxed text-ink-500">
+            Also supported —{" "}
+            <span className="normal-case tracking-normal">
+              {sectorsWithoutPages.map((sector) => sector.title).join(", ")}
+            </span>
+          </p>
+        ) : null}
       </Container>
     </section>
   );

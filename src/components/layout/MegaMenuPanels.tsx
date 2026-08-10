@@ -64,14 +64,16 @@ function CapabilitiesPanel({ onNavigate }: { onNavigate: () => void }) {
 }
 
 function SectorsPanel({ onNavigate }: { onNavigate: () => void }) {
+  const hasUnlisted = sectorsWithoutPages.length > 0;
+
   return (
     <div>
-      <div className="grid gap-x-8 gap-y-7 lg:grid-cols-[1.4fr_1fr]">
+      <div className={`grid gap-x-8 gap-y-7 ${hasUnlisted ? "lg:grid-cols-[1.6fr_1fr]" : ""}`}>
         <div>
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-950">
             Sectors
           </p>
-          <ul className="mt-4 grid gap-1 sm:grid-cols-2">
+          <ul className="mt-4 grid gap-x-6 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
             {sectorsWithPages.map((sector) => (
               <li key={sector.slug}>
                 <Link
@@ -79,28 +81,30 @@ function SectorsPanel({ onNavigate }: { onNavigate: () => void }) {
                   onClick={onNavigate}
                   className="block rounded-lg px-2.5 py-2 -mx-2.5 text-sm font-medium text-ink-700 transition-[background-color,color] hover:bg-sand-100 hover:text-ink-950"
                 >
-                  {sector.title}
+                  {sector.shortTitle}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        <div>
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-950">
-            Also supported
-          </p>
-          <ul className="mt-4 flex flex-wrap gap-1.5">
-            {sectorsWithoutPages.map((sector) => (
-              <li
-                key={sector.slug}
-                className="rounded-full border border-ink-100 bg-sand-50 px-3 py-1.5 text-xs text-ink-500"
-              >
-                {sector.shortTitle}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {hasUnlisted ? (
+          <div>
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-950">
+              Also supported
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-1.5">
+              {sectorsWithoutPages.map((sector) => (
+                <li
+                  key={sector.slug}
+                  className="border border-ink-100 bg-sand-50 px-3 py-1.5 text-xs text-ink-500"
+                >
+                  {sector.shortTitle}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-7 border-t border-ink-100 pt-5">
@@ -147,6 +151,6 @@ export function MegaMenuPanel({
 /** Panels differ enough in content volume to warrant different widths. */
 export const panelWidth: Record<NavMenuKey, string> = {
   capabilities: "max-w-6xl",
-  medtech: "max-w-4xl",
+  medtech: "max-w-5xl",
   approach: "max-w-2xl",
 };
