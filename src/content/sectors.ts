@@ -5,9 +5,12 @@ import type { LifecycleStageId } from "./lifecycle";
  *
  * Capabilities describe what Stallion does; sectors describe where those
  * capabilities get applied. Sectors with `hasPage: true` generate a route
- * at /medtech/<slug>. The rest are listed on the index as supported areas
- * and can be promoted to full pages later by adding the detail fields —
- * the architecture does not change.
+ * at /medtech/<slug>; every sector currently has one.
+ *
+ * A new sector can still be added with `hasPage: false` and only the
+ * summary filled in — it then appears as a supported area without a route,
+ * and is promoted later by adding the detail fields. The UI handles both
+ * states, so the architecture does not change either way.
  *
  * Language here is deliberately "areas we support" rather than claimed
  * track record. Nothing on these pages asserts prior client work that is
@@ -298,49 +301,203 @@ export const sectors: Sector[] = [
     lifecycleEmphasis: ["industrialize", "scale"],
   },
 
-  /* Supported areas without dedicated pages yet. Promote by adding the
-     detail fields above and flipping hasPage. */
   {
     slug: "cardiovascular",
     title: "Cardiovascular Technologies",
     shortTitle: "Cardiovascular",
-    summary: "High-acuity implantable and interventional cardiovascular technologies.",
-    hasPage: false,
+    summary:
+      "High-acuity implantable and interventional technologies, where the evidence bar and the consequences of a field issue are both at their highest.",
+    hasPage: true,
+    metaDescription:
+      "Cardiovascular device consulting: evidence strategy, design change control on implanted products, biocompatibility coordination, supplier control, and post-market surveillance programs.",
+    heroHeadline: "Where the evidence bar is highest",
+    heroCopy:
+      "Cardiovascular products carry the longest evidence tail in medical technology. Decisions taken during development determine what can be claimed years later, and a design change on an implanted product is never a local change.",
+    shifts: [
+      "Transcatheter and structural heart approaches continue to move procedure volumes, changing the competitive set for established products.",
+      "Long-term follow-up expectations are extending the evidence obligation well past market authorization.",
+      "Miniaturization and power constraints on implantables are pushing more of the difficulty into materials and electronics.",
+    ],
+    challenges: [
+      "Evidence strategy that has to satisfy premarket, reimbursement, and long-term follow-up at once",
+      "Design or supplier changes on an implanted product, where change impact assessment is unforgiving",
+      "Biocompatibility and materials decisions taken before their downstream cost is understood",
+      "Supplier control for components with no acceptable second source",
+      "Post-market surveillance obligations accumulating faster than the team managing them",
+    ],
+    relevantCapabilities: [
+      "clinical-evidence",
+      "regulatory-market-access",
+      "product-development-rd",
+      "quality-compliance",
+      "post-market-lifecycle",
+    ],
+    lifecycleEmphasis: ["concept", "develop", "validate", "sustain"],
   },
   {
     slug: "imaging-systems",
     title: "Diagnostic & Imaging Systems",
     shortTitle: "Imaging Systems",
-    summary: "Imaging platforms combining hardware, software, and service obligations.",
-    hasPage: false,
+    summary:
+      "Imaging platforms combining hardware, software, and multi-year service obligations on a single installed base.",
+    hasPage: true,
+    metaDescription:
+      "Diagnostic and imaging systems consulting: multi-discipline development programs, software and AI features inside a device quality system, installed base upgrades, service strategy, and obsolescence planning.",
+    heroHeadline: "Hardware lifetimes, software release cycles",
+    heroCopy:
+      "An imaging system is a decade-long hardware commitment carrying software that wants to ship quarterly. Most of the programme difficulty comes from those two clocks running in the same product.",
+    shifts: [
+      "Reconstruction, triage, and workflow features are moving imaging value into software, and into software lifecycle obligations.",
+      "Service revenue and uptime commitments are raising the operational stakes of field reliability.",
+      "Detector and compute component lifecycles are far shorter than system service life, forcing continuous redesign.",
+    ],
+    challenges: [
+      "Multi-discipline system integration where a schedule slip in one subsystem stalls the rest",
+      "Software and AI features that need a lifecycle process the quality system will accept",
+      "Installed base upgrade programs competing with new development for the same engineers",
+      "Field reliability issues requiring coordinated root-cause work across mechanical, electrical, and software",
+      "Component obsolescence threatening continuity on systems still under service contract",
+    ],
+    relevantCapabilities: [
+      "engineering-technical",
+      "digital-software-ai",
+      "post-market-lifecycle",
+      "manufacturing-supply-chain",
+      "program-portfolio-transformation",
+    ],
+    lifecycleEmphasis: ["develop", "industrialize", "launch", "sustain"],
   },
   {
     slug: "consumables-disposables",
     title: "Consumables & Disposables",
     shortTitle: "Consumables",
-    summary: "High-volume single-use products where cost, yield, and supply continuity dominate.",
-    hasPage: false,
+    summary:
+      "High-volume single-use products where unit cost, yield, sterilization, and supply continuity decide whether the business case holds.",
+    hasPage: true,
+    metaDescription:
+      "Medical consumables and disposables consulting: yield and scrap improvement, multi-cavity tooling validation, sterilization strategy, supply continuity, and cost improvement without revalidation churn.",
+    heroHeadline: "Where a cent per unit is a strategy",
+    heroCopy:
+      "At single-use volumes, decisions that look like rounding errors in development become the whole margin. Yield, cavitation, cycle time, and sterilization modality are strategic choices, not manufacturing details.",
+    shifts: [
+      "Sustained cost pressure is pushing localization and resin substitution onto products that were never designed for either.",
+      "Scrutiny of established sterilization modalities is forcing organizations to hold credible alternatives.",
+      "Materials and packaging sustainability expectations are entering specifications that were stable for years.",
+    ],
+    challenges: [
+      "Yield and scrap that do not hold at production volume and rate",
+      "Multi-cavity tooling and process validation across cavities and shifts",
+      "Sterilization strategy, validation, and the cost of holding a second modality",
+      "Supply continuity for resins and components with long qualification lead times",
+      "Cost-down programs that trigger more revalidation than they save",
+    ],
+    relevantCapabilities: [
+      "manufacturing-supply-chain",
+      "quality-compliance",
+      "engineering-technical",
+      "india-global-execution",
+      "post-market-lifecycle",
+    ],
+    lifecycleEmphasis: ["industrialize", "scale", "sustain"],
   },
   {
     slug: "ai-enabled-medtech",
     title: "AI-Enabled Medical Technology",
     shortTitle: "AI-Enabled MedTech",
-    summary: "Products where model performance, monitoring, and change control are core obligations.",
-    hasPage: false,
+    summary:
+      "Products whose behaviour can change after shipping, where change control, data provenance, and performance monitoring become core obligations.",
+    hasPage: true,
+    metaDescription:
+      "AI-enabled medical technology consulting: change control for evolving models, data provenance, performance monitoring, evidence planning, and integrating model development with a device quality system.",
+    heroHeadline: "A product that can change after you ship it",
+    heroCopy:
+      "Device quality systems assume a product is fixed at release. A model that can be retrained, or whose performance drifts with the population it sees, breaks that assumption — and the organization has to decide deliberately what a controlled change now means.",
+    shifts: [
+      "Expectations around predetermined change control are maturing, rewarding organizations that planned for model updates rather than retrofitting a process.",
+      "Data provenance and population representativeness are receiving scrutiny equal to the algorithm itself.",
+      "Post-market performance monitoring is becoming a design requirement rather than a reporting afterthought.",
+    ],
+    challenges: [
+      "Defining what counts as a controlled change when a model is retrained",
+      "Data provenance, representativeness, and the ability to evidence both",
+      "Monitoring performance drift in the field and deciding what triggers action",
+      "Evidence that supports the claim actually being made, not the capability demonstrated",
+      "Model development practice and the quality system operating as one process rather than two",
+    ],
+    relevantCapabilities: [
+      "digital-software-ai",
+      "regulatory-market-access",
+      "clinical-evidence",
+      "quality-compliance",
+      "product-development-rd",
+    ],
+    lifecycleEmphasis: ["concept", "develop", "validate", "sustain"],
   },
   {
     slug: "wearables-remote-monitoring",
     title: "Wearables & Remote Monitoring",
     shortTitle: "Wearables & Monitoring",
-    summary: "Continuous-use products spanning device, connectivity, and data workflows.",
-    hasPage: false,
+    summary:
+      "Continuous-use products spanning device, connectivity, and data workflows, where adherence matters as much as accuracy.",
+    hasPage: true,
+    metaDescription:
+      "Wearables and remote monitoring consulting: human factors for long wear, sensing accuracy under power and comfort constraints, data and alarm workflows, regulatory boundaries, and connected fleet sustaining.",
+    heroHeadline: "Continuous use, continuous obligation",
+    heroCopy:
+      "A monitoring product only produces the data its business case assumes if people keep wearing it. Adherence, comfort, and power are not secondary to sensing accuracy — they determine whether accuracy is ever achieved in the field.",
+    shifts: [
+      "Reimbursement pathways for remote monitoring are maturing unevenly across markets, making sequencing a strategic decision.",
+      "Consumer-grade expectations for form factor and battery life are colliding with medical-grade requirements.",
+      "Continuous data volumes are turning alarm design and signal quality into primary engineering problems.",
+    ],
+    challenges: [
+      "Human factors and adherence across weeks of wear rather than a single procedure",
+      "Sensing accuracy under real power, thermal, and comfort constraints",
+      "Data pipeline, signal quality, and alarm management at continuous volume",
+      "The regulatory boundary between wellness positioning and device claims",
+      "Sustaining a connected fleet across firmware, app, and cloud versions",
+    ],
+    relevantCapabilities: [
+      "product-development-rd",
+      "digital-software-ai",
+      "clinical-evidence",
+      "regulatory-market-access",
+      "commercialization",
+    ],
+    lifecycleEmphasis: ["concept", "develop", "launch", "sustain"],
   },
   {
     slug: "robotics-advanced-systems",
     title: "Robotics & Advanced Medical Systems",
     shortTitle: "Robotics",
-    summary: "Multi-discipline systems with heavy integration, safety, and service demands.",
-    hasPage: false,
+    summary:
+      "Multi-discipline systems where integration, safety architecture, and service readiness dominate the program.",
+    hasPage: true,
+    metaDescription:
+      "Medical robotics consulting: system integration and interface control, safety architecture, verification for a system of systems, training and field service readiness, and installed base version management.",
+    heroHeadline: "Integration is the program",
+    heroCopy:
+      "In robotics the individual disciplines are rarely the constraint. Mechanical, electrical, software, controls, and clinical workflow all work — the difficulty is the interfaces between them, and the fact that verification has to cover the system rather than the parts.",
+    shifts: [
+      "Capital scrutiny is pushing purchasers toward utilization-based justification, which raises the stakes on uptime and throughput.",
+      "Expanding autonomy is deepening the safety architecture and risk analysis required to support it.",
+      "Service, training, and proctoring capacity are becoming gating constraints on commercial rollout.",
+    ],
+    challenges: [
+      "System integration and interface control across five or more disciplines",
+      "Safety architecture and risk analysis depth proportionate to the level of autonomy",
+      "Verification and validation for a system of systems rather than a set of subsystems",
+      "Training, proctoring, and field service readiness gating commercial launch",
+      "Installed base upgrades and version control across a deployed fleet",
+    ],
+    relevantCapabilities: [
+      "engineering-technical",
+      "product-development-rd",
+      "program-portfolio-transformation",
+      "post-market-lifecycle",
+      "clinical-evidence",
+    ],
+    lifecycleEmphasis: ["concept", "develop", "validate", "launch"],
   },
 ];
 
